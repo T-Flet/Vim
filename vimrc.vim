@@ -12,7 +12,8 @@
 "       configuration with asimptotically slowing evolution over time.
 "
 "   Sections:
-"       Features
+"       Basics
+"       Startup Options
 "       Must Have Options
 "       Usability Options
 "       Indentation Options

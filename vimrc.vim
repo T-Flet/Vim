@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.2 - 05/01/2014
+"       0.3 - 06-07/01/2014
 "
 "   Description:
 "       Personal vim configuration file of Dr-Lord; started from general tips
@@ -17,7 +17,7 @@
 "       User Interface
 "       Usability Options
 "       Indentation Options
-"       Font and Text
+"       Text, Font and Colours
 "       Mappings
 "       Miscellaneous Options
 
@@ -30,9 +30,6 @@ set nocompatible
 " Attempt to determine file type from name and possibly contents, which
 " allows intelligent auto-indenting and filetype specific plugins.
 filetype indent plugin on
-
-" Enable syntax highlighting
-syntax on
 
 " Sets how many lines of history VIM has to remember
 set history=1000
@@ -92,6 +89,18 @@ set scrolloff=7
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Set extra options when running in GUI mode: in total: gmrLtaAc
+if has("gui_running")
+set guioptions+=aA  "Make selection in all modes available to other applications
+set guioptions+=c   "Console instead of popups for simple choices
+set guioptions-=T   "No Toolbar
+"set guioptions-=m   "No menubar
+set guioptions-=e   "Allow non-GUI tab pages lines
+set t_Co=256        "Enable 256 colours
+set guitablabel=%M\ %t  "Set label of GUI tab pages lines (requires e above)
+endif
+
+
 """" USABILITY OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Use case insensitive search, except when using capital letters
@@ -145,6 +154,7 @@ else
 set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
+
 """" INDENTATION OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Indentation settings for using 4 spaces instead of tabs.
@@ -154,10 +164,27 @@ set softtabstop=4
 set expandtab
 
 
-"""" FONT AND TEXT """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Font size
 :set guifont=Lucida_Sans_Typewriter:h18:cANSI
+
+" Enable syntax highlighting
+syntax on
+
+" Set colourscheme
+try
+colorscheme slate
+catch
+endtry
+
+set background=dark
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Dos as the standard file type
+set ffs=dos,unix,mac
 
 
 """" MAPPINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

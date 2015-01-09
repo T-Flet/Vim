@@ -75,6 +75,8 @@ set ruler
 set number
 " Always display the status line, even if only one window is displayed
 set laststatus=2
+" Format the status line
+let &statusline=" Buf:%n   %{HasPaste()}%f%m%r%h %w  PWD: %.40{getcwd()}   %y  Line: %l/%L Col: %c"
 
 " Show matching brackets when text indicator is over them
 set showmatch
@@ -270,6 +272,14 @@ set stal=2
 catch
 endtry
 
+" Remember info about open buffers on close
+set viminfo^=%
+" and return to last edit position when opening files
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\   exe "normal! g`\"" |
+\ endif
+
 
 """ MAPPINGS """
 
@@ -331,4 +341,13 @@ endif
 
 let @/ = l:pattern
 let @" = l:saved_reg
+endfunction
+
+
+" Returns true if paste mode is enabled
+function! HasPaste()
+if &paste
+return 'PASTE MODE  '
+en
+return ''
 endfunction

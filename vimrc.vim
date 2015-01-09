@@ -22,8 +22,7 @@
 "       Indentation
 "       Motions and Moving Around
 "       Text, Font and Colours
-"       Mappings
-"       Miscellaneous Options
+"       Other Options
 "       Helper Functions
 
 
@@ -94,7 +93,7 @@ endif
 "au GUIEnter * simalt ~x
 
 
-"""" USABILITY OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" USABILITY """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
@@ -140,6 +139,16 @@ set writebackup
 "cd FOLDER
 
 
+"" Mappings ""
+
+" ALL MODES: Map Y to act like D and C, i.e. to yank until EOL,
+" rather than act as yy, which is the default
+map Y y$
+
+" NORMAL MODE: Fast saving
+nmap <leader>w :w!<cr>
+
+
 """" SEARCH """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Hilight search results
@@ -153,6 +162,17 @@ set smartcase
 
 " For regular expressions turn magic on
 set magic
+
+
+"" Mappings ""
+
+" VISUAL MODE: * and # searchs for the current selection forwards and backwards
+vnoremap <silent> * :call VisualSelection('f', '')<CR>
+vnoremap <silent> # :call VisualSelection('b', '')<CR>
+
+" NORMAL MODE: Map <C-L> (redraw screen) to also turn off search highlighting
+" until the next search
+nnoremap <C-L> :nohl<CR><C-L>
 
 
 """" INDENTATION """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -189,6 +209,13 @@ set whichwrap=b,s,h,l,<,>,[,]
 set backspace=indent,eol,start
 
 
+"" Mappings ""
+
+" Treat long lines as break lines (useful when moving around in them)
+map j gj
+map k gk
+
+
 """" TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""""""
 
 "Font size
@@ -212,31 +239,7 @@ set encoding=utf8
 set ffs=dos,unix,mac
 
 
-"""" MAPPINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
-" which is the default
-map Y y$
-
-
-"" NORMAL MODE ""
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
-
-
-"" VISUAL MODE ""
-
-" * and # searchs for the current selection forwards and backwards
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
-
-
-"""" MISCELLANEOUS OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'

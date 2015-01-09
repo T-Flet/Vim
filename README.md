@@ -9,5 +9,5 @@ My real _vimrc contains only this:
 
 If your path contains spaces, put it in a variable:
 
-    $PATH_VARIABLE = "PATH_TO_THIS_REPOSITORY'S_FILE"
-    SOURCE $PATH_VARIABLE
+    let $PATH_VARIABLE = "PATH_TO_THIS_REPOSITORY'S_FILE"
+    source $PATH_VARIABLE

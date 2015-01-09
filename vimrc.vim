@@ -17,13 +17,15 @@
 "   Sections:
 "       Basics
 "       User Interface
+"       Text, Font and Colours
 "       Usability
 "       Search
 "       Indentation
 "       Motions and Moving Around
-"       Text, Font and Colours
+"       Buffers and Tabs
 "       Other Options
 "       Helper Functions
+
 
 
 """" BASICS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -44,6 +46,13 @@ set autoread
 " Set "," as map leader, allowing extra key combinations
 let mapleader = ","
 let g:mapleader = ","
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Dos as the standard file type
+set ffs=dos,unix,mac
+
 
 
 """" USER INTERFACE """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -93,6 +102,25 @@ endif
 "au GUIEnter * simalt ~x
 
 
+
+"""" TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+"Font size
+:set guifont=Lucida_Sans_Typewriter:h18:cANSI
+
+" Enable syntax highlighting
+syntax on
+
+" Set colourscheme
+try
+colorscheme slate
+catch
+endtry
+
+set background=dark
+
+
+
 """" USABILITY """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Instead of failing a command because of unsaved changes, instead raise a
@@ -114,7 +142,7 @@ if has('mouse')
 set mouse=a
 endif
 
-" Quickly time out on keycodes, but never time out on mappings
+" Quickly time out on keycodes, but never time out on MAPPINGS
 set notimeout ttimeout ttimeoutlen=200
 
 " Modelines have historically been a source of security vulnerabilities.
@@ -139,14 +167,24 @@ set writebackup
 "cd FOLDER
 
 
-"" Mappings ""
+""" MAPPINGS """
 
 " ALL MODES: Map Y to act like D and C, i.e. to yank until EOL,
 " rather than act as yy, which is the default
 map Y y$
 
+" ALL MODES: Disable highlight when <leader><cr> is pressed
+map <silent> <leader><cr> :noh<cr>
+
+" ALL MODES: Smart way to move between windows
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 " NORMAL MODE: Fast saving
 nmap <leader>w :w!<cr>
+
 
 
 """" SEARCH """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -164,15 +202,20 @@ set smartcase
 set magic
 
 
-"" Mappings ""
+""" MAPPINGS """
+
+" ALL MODES: Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+map <space> /
+map <c-space> ?
+
+" NORMAL MODE: Map <C-L> (redraw screen) to also turn off search highlighting
+" until the next search
+nnoremap <C-L> :nohl<CR><C-L>
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
-" NORMAL MODE: Map <C-L> (redraw screen) to also turn off search highlighting
-" until the next search
-nnoremap <C-L> :nohl<CR><C-L>
 
 
 """" INDENTATION """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -199,6 +242,7 @@ set tw=120
 set wrap
 
 
+
 """" MOTIONS AND MOVING AROUND """""""""""""""""""""""""""""""""""""""""""""""""
 
 " Allow specified keys that move the cursor left/right to move to the
@@ -209,34 +253,51 @@ set whichwrap=b,s,h,l,<,>,[,]
 set backspace=indent,eol,start
 
 
-"" Mappings ""
+""" MAPPINGS """
 
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
 
 
-"""" TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""""""
 
-"Font size
-:set guifont=Lucida_Sans_Typewriter:h18:cANSI
+"""" BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Enable syntax highlighting
-syntax on
-
-" Set colourscheme
+" Specify the behavior when switching between buffers
 try
-colorscheme slate
+set switchbuf=useopen,usetab,newtab
+set stal=2
 catch
 endtry
 
-set background=dark
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
+""" MAPPINGS """
 
-" Use Dos as the standard file type
-set ffs=dos,unix,mac
+" ALL MODES: Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" ALL MODES: Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" ALL MODES: Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" ALL MODES: Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" ALL MODES: Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" NORMAL MODE: Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
 
 
 """" OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -246,6 +307,7 @@ let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
 
 
 """" HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""

@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.5 - 08-09/01/2014
+"       0.6 - 10/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -15,20 +15,20 @@
 "       configuration with asimptotically slowing evolution over time.
 "
 "   Sections:
-"       Basics
-"       User Interface
-"       Text, Font and Colours
-"       Usability
-"       Search
-"       Indentation
-"       Motions and Moving Around
-"       Buffers and Tabs
-"       Other Options
-"       Helper Functions
+"       1 - Basics
+"       2 - User Interface
+"       3 - Text, Font and Colours
+"       4 - Usability
+"       5 - Search
+"       6 - Indentation
+"       7 - Motions and Moving Around
+"       8 - Buffers and Tabs
+"       9 - Other Options
+"       0 - Helper Functions
 
 
 
-"""" BASICS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 1 - BASICS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Ward off unexpected things and sanely reset options when re-sourcing .vimrc
 set nocompatible
@@ -55,7 +55,7 @@ set ffs=dos,unix,mac
 
 
 
-"""" USER INTERFACE """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 2 - USER INTERFACE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Make abandoned buffers hidden, and generate a single undo history for all
 set hidden
@@ -105,7 +105,7 @@ endif
 
 
 
-"""" TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 3 - TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""
 
 "Font size
 :set guifont=Lucida_Sans_Typewriter:h18:cANSI
@@ -122,8 +122,20 @@ endtry
 set background=dark
 
 
+""" MAPPINGS """
 
-"""" USABILITY """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ALL MODES: Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" ALL MODES: Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+
+
+"""" 4 - USABILITY """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
@@ -165,6 +177,15 @@ set nobackup
 set noswapfile
 set writebackup
 
+" Delete trailing white space on save
+func! DeleteTrailingWS()
+exe "normal mz"
+%s/\s\+$//ge
+exe "normal `z"
+endfunc
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
+
 " Change initial directory. Can also be done through shortcut options
 "cd FOLDER
 
@@ -189,7 +210,7 @@ nmap <leader>w :w!<cr>
 
 
 
-"""" SEARCH """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 5 - SEARCH """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Hilight search results
 set hlsearch
@@ -220,7 +241,7 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
 
 
-"""" INDENTATION """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 6 - INDENTATION """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " When opening a new line and no filetype-specific indenting is enabled, keep
 " the same indent as the line you're currently on
@@ -245,7 +266,7 @@ set wrap
 
 
 
-"""" MOTIONS AND MOVING AROUND """""""""""""""""""""""""""""""""""""""""""""""""
+"""" 7 - MOTIONS AND MOVING AROUND """""""""""""""""""""""""""""""""""""""""""""
 
 " Allow specified keys that move the cursor left/right to move to the
 " previous/next line when the cursor is on the first/last character in line.
@@ -257,13 +278,26 @@ set backspace=indent,eol,start
 
 """ MAPPINGS """
 
-" Treat long lines as break lines (useful when moving around in them)
+" ALL MODES: Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
 
+" NORMAL, VISUAL MODE: Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+nmap <D-j> <M-j>
+nmap <D-k> <M-k>
+vmap <D-j> <M-j>
+vmap <D-k> <M-k>
+endif
 
 
-"""" BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""" 8 - BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Specify the behavior when switching between buffers
 try
@@ -310,7 +344,7 @@ au TabLeave * let g:lasttab = tabpagenr()
 
 
 
-"""" OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 9 - OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en'
@@ -320,7 +354,7 @@ source $VIMRUNTIME/menu.vim
 
 
 
-"""" HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function! VisualSelection(direction, extra_filter) range
 let l:saved_reg = @"

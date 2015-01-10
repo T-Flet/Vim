@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.6 - 10/01/2014
+"       0.7 - 10/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim

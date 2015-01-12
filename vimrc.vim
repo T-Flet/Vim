@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.7 - 10/01/2014
+"       0.8 - 11-12/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -205,6 +205,12 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
+" ALL MODES: Toggle paste mode on and off (mode which does not reformat pastes)
+map <leader>pp :setlocal paste!<cr>
+
+" ALL MODES: Quick paste from OS clipboard
+map <leader>v "+p
+
 " NORMAL MODE: Fast saving
 nmap <leader>w :w!<cr>
 
@@ -339,7 +345,7 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " NORMAL MODE: Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 
@@ -351,6 +357,12 @@ let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
+
+
+""" MAPPINGS """
+
+" NORMAL MODE: Reload _vimrc file ($REAL_VIMRC set in the real _vimrc)
+:nmap <leader>r :source $REAL_VIMRC
 
 
 

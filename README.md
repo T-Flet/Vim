@@ -4,10 +4,8 @@ Vim
 Vim configuration file(s) and related programs and data.
 My real _vimrc contains only this:
 
-      source PATH_TO_THIS_REPOSITORY'S_FILE
-
-
-If your path contains spaces, put it in a variable:
-
-    let $PATH_VARIABLE = "PATH_TO_THIS_REPOSITORY'S_FILE"
-    source $PATH_VARIABLE
+    " This file's path (variable used inside repository's vimrc)
+    let $REAL_VIMRC="PATH OF ACTUAL _VIMRC"
+    " Repository's vimrc file path
+    let $REPO_VIMRC="PATH OF THIS REPOSITORY'S VIMRC"
+    source $REPO_VIMRC

@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.8 - 11-12/01/2014
+"       0.9 - 12-13/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -323,16 +323,22 @@ autocmd BufReadPost *
 
 """ MAPPINGS """
 
+" ALL MODES: Show all buffers (with shortcuts) and wait for a shortcut for one
+nnoremap <leader>bg :buffers<CR>:buffer<Space>
+
 " ALL MODES: Close the current buffer
-map <leader>bd :Bclose<cr>
+map <leader>bc :Bclose<cr>
 
 " ALL MODES: Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
-" ALL MODES: Useful mappings for managing tabs
+" ALL MODES: Useful mappings for managing tabs (C-PageUp/Down for :tabp/n)
+" Open new tab through file search
+map <leader>tf :tabfind <Space>
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
+" Move tab to X position (starting from 0)
 map <leader>tm :tabmove
 map <leader>t<leader> :tabnext
 

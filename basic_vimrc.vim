@@ -9,8 +9,8 @@
 "       https://github.com/Dr-Lord/Vim
 "
 "   Description:
-"       Non-extension related part of the personal vim configuration of Dr-Lord;
-"       started from general tips and tricks gathered from use, research and
+"       Non-extension related part of the personal vim configuration of Dr-Lord.
+"       Started from general tips and tricks gathered from use, research and
 "       study of the best vimrcs found through it, and (hopefully) ending in a
 "       complete configuration with asimptotically slowing evolution over time.
 "
@@ -129,7 +129,7 @@ set background=dark
 """ MAPPINGS """
 
 " ALL MODES: Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+map <leader>ss :setlocal spell!<Enter>
 
 " ALL MODES: Shortcuts using <leader>
 map <leader>sn ]s
@@ -209,8 +209,8 @@ autocmd BufWrite * :call DeleteTrailingWS()
 " rather than act as yy, which is the default
 map Y y$
 
-" ALL MODES: Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+" ALL MODES: Disable highlight when <leader><Enter> is pressed
+map <silent> <leader><Enter> :noh<Enter>
 
 " ALL MODES: Smart way to move between windows
 map <C-j> <C-W>j
@@ -219,13 +219,13 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " ALL MODES: Toggle paste mode on and off (mode which does not reformat pastes)
-map <leader>pp :setlocal paste!<cr>
+map <leader>pp :setlocal paste!<Enter>
 
 " ALL MODES: Quick paste from OS clipboard
 map <leader>v "+p
 
 " NORMAL MODE: Fast saving
-nmap <leader>w :w!<cr>
+nmap <leader>w :w!<Enter>
 
 
 
@@ -252,16 +252,16 @@ map <c-space> ?
 
 " NORMAL MODE: Map <C-L> (redraw screen) to also turn off search highlighting
 " until the next search
-nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <C-L> :nohl<Enter><C-L>
 
 " NORMAL MODE: Hilight matches when jumping to next
-nnoremap <silent> n   n:call HLNext(0.4)<cr>
-nnoremap <silent> N   N:call HLNext(0.4)<cr>
+nnoremap <silent> n   n:call HLNext(0.4)<Enter>
+nnoremap <silent> N   N:call HLNext(0.4)<Enter>
 
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
+vnoremap <silent> * :call VisualSelection('f', '')<Enter>
+vnoremap <silent> # :call VisualSelection('b', '')<Enter>
 
 
 
@@ -307,10 +307,10 @@ map j gj
 map k gk
 
 " NORMAL, VISUAL MODE: Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <M-j> mz:m+<Enter>`z
+nmap <M-k> mz:m-2<Enter>`z
+vmap <M-j> :m'>+<Enter>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<Enter>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
 nmap <D-j> <M-j>
@@ -342,35 +342,35 @@ autocmd BufReadPost *
 """ MAPPINGS """
 
 " ALL MODES: Show all buffers (with shortcuts) and wait for a shortcut for one
-nnoremap <leader>bg :buffers<CR>:buffer<Space>
+nnoremap <leader>bg :buffers<Enter>:buffer<Space>
 
 " ALL MODES: Close the current buffer
 command! Bclose call <SID>BufcloseCloseIt()
-map <leader>bc :Bclose<cr>
+map <leader>bc :Bclose<Enter>
 
 " ALL MODES: Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+map <leader>ba :1,1000 bd!<Enter>
 
 " ALL MODES: Useful mappings for managing tabs (C-PageUp/Down for :tabp/n)
 " Open new tab through file search
 map <leader>tf :tabfind <Space>
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
+map <leader>tn :tabnew<Enter>
+map <leader>to :tabonly<Enter>
+map <leader>tc :tabclose<Enter>
 " Move tab to X position (starting from 0)
 map <leader>tm :tabmove
 map <leader>t<leader> :tabnext
 
 " ALL MODES: Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+map <leader>te :tabedit <c-r>=expand("%:p:h")<Enter>/
 
 " ALL MODES: Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <leader>cd :cd %:p:h<Enter>:pwd<Enter>
 
 " NORMAL MODE: Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<CR>
+nmap <leader>tl :exe "tabn ".g:lasttab<Enter>
 au TabLeave * let g:lasttab = tabpagenr()
 
 

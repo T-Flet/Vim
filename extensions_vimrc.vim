@@ -9,8 +9,8 @@
 "       https://github.com/Dr-Lord/Vim
 "
 "   Description:
-"       Extension related part of the personal vim configuration of Dr-Lord;
-"       started from general tips and tricks gathered from use, research and
+"       Extension related part of the personal vim configuration of Dr-Lord.
+"       Started from general tips and tricks gathered from use, research and
 "       study of the best vimrcs found through it, and (hopefully) ending in a
 "       complete configuration with asimptotically slowing evolution over time.
 "

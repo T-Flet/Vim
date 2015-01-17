@@ -26,8 +26,8 @@ noremap <C-t> :tabnew<Enter>
 noremap <C-w> :tabclose<Enter>
 
 " NORMAL AND INSERT MODES: Ctrl-x,c,v : cut, copy and paste
-nnoremap <C-x> d
-nnoremap <C-c> y
+nnoremap <C-x> "+d
+nnoremap <C-c> "+y
 nnoremap <C-v> "+gP
 
 inoremap <C-v> <Esc>"+gPi

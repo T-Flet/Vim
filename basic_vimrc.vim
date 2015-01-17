@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.0 - 13-14/01/2014
+"       1.1 - 16-17/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -52,6 +52,19 @@ set encoding=utf8
 
 " Use Dos as the standard file type
 set ffs=dos,unix,mac
+
+
+" Use persistent undo
+if has('persistent_undo')
+    " Save all undo files in a single location (less messy, more risky)...
+    set undodir=$HOME/tmp/.VIM_UNDO_FILES
+
+    " Save a lot of back-history...
+    set undolevels=5000
+
+    " Actually switch on persistent undo
+    set undofile
+endif
 
 
 
@@ -250,14 +263,16 @@ set magic
 map <space> /
 map <c-space> ?
 
-" NORMAL MODE: Map <C-L> (redraw screen) to also turn off search highlighting
-" until the next search
-nnoremap <C-L> :nohl<Enter><C-L>
+" NORMAL MODE: Map Backspace to turn off search highlighting until next search
+nnoremap <BS> :nohl<Enter><BS>
 
 " NORMAL MODE: Hilight matches when jumping to next
 nnoremap <silent> n   n:call HLNext(0.4)<Enter>
 nnoremap <silent> N   N:call HLNext(0.4)<Enter>
 
+" NORMAL AND VISUAL MODES: Shortcut for :s///g
+nmap S  :%s//g<LEFT><LEFT>
+vmap S  :B s//g<LEFT><LEFT>
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
 vnoremap <silent> * :call VisualSelection('f', '')<Enter>
@@ -334,9 +349,9 @@ endtry
 set viminfo^=%
 " and return to last edit position when opening files
 autocmd BufReadPost *
-\ if line("'\"") > 0 && line("'\"") <= line("$") |
-\   exe "normal! g`\"" |
-\ endif
+        \ if line("'\"") > 0 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
 
 
 """ MAPPINGS """

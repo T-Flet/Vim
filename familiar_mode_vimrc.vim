@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.1 - 15-16/01/2014
+"       1.2 - 17-18/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -25,12 +25,12 @@ noremap <C-S-Tab> :tabprevious<Enter>
 noremap <C-t> :tabnew<Enter>
 noremap <C-w> :tabclose<Enter>
 
-" NORMAL AND INSERT MODES: Ctrl-x,c,v : cut, copy and paste
-nnoremap <C-x> "+d
-nnoremap <C-c> "+y
-nnoremap <C-v> "+gP
+" ALL MODES: Ctrl-x,c,v : cut, copy and paste
+noremap <C-x> "*d
+noremap <C-c> "*y
+noremap <C-v> "*gp
 
-inoremap <C-v> <Esc>"+gPi
+inoremap <C-v> <Esc>"*gpi
 
 " For Ctrl-v to work on Unix, autoselect must be off.
 if !has("unix")
@@ -45,7 +45,7 @@ inoremap <C-z> <Esc>ui
 inoremap <C-y> <Esc><C-r>i
 
 " NORMAL AND INSERT MODES: Crtl-a : select all
-noremap <C-A> gggH<C-O>G
+noremap  <C-A> gggH<C-O>G
 inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
 cnoremap <C-A> <C-C>gggH<C-O>G
 onoremap <C-A> <C-C>gggH<C-O>G
@@ -61,12 +61,6 @@ inoremap <C-s> <Esc>:w<Enter>
 nnoremap <C-f> /
 inoremap <C-f> <Esc>/
 vnoremap <C-f> <Esc>/
-
-" ALL MODES: Ctrl-F4 closes the window
-noremap <C-F4> <C-W>c
-inoremap <C-F4> <C-O><C-W>c
-cnoremap <C-F4> <C-C><C-W>c
-onoremap <C-F4> <C-C><C-W>c
 
 " NORMAL, VISUAL AND INSERT MODES: Shift-Arrows : visual selection
 nnoremap <S-Right> v<Right>
@@ -101,5 +95,5 @@ inoremap <A-S-Left>  <Esc><C-v><Up>
 inoremap <A-S-Right> <Esc><C-v><Down>
 
 " VISUAL MODE: Backspace deletes selection
-vnoremap <BS> d
+vnoremap <BS> di
 

@@ -223,7 +223,7 @@ autocmd BufWrite * :call DeleteTrailingWS()
 map Y y$
 
 " ALL MODES: Disable highlight when <leader><Enter> is pressed
-map <silent> <leader><Enter> :noh<Enter>
+map <Silent> <leader><Enter> :noh<Enter>
 
 " ALL MODES: Smart way to move between windows
 map <C-j> <C-W>j
@@ -267,16 +267,19 @@ map <c-space> ?
 nnoremap <BS> :nohl<Enter><BS>
 
 " NORMAL MODE: Hilight matches when jumping to next
-nnoremap <silent> n   n:call HLNext(0.4)<Enter>
-nnoremap <silent> N   N:call HLNext(0.4)<Enter>
+nnoremap <Silent> n   n:call HLNext(0.4)<Enter>
+nnoremap <Silent> N   N:call HLNext(0.4)<Enter>
 
 " NORMAL AND VISUAL MODES: Shortcut for :s///g
-nmap S  :%s//g<LEFT><LEFT>
-vmap S  :B s//g<LEFT><LEFT>
+nmap S  :%s//g<Left><Left>
+vmap S  :B s//g<Left><Left>
+
+" Highlight all occurrences of the current word without selecting the next one
+nnoremap <Leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
-vnoremap <silent> * :call VisualSelection('f', '')<Enter>
-vnoremap <silent> # :call VisualSelection('b', '')<Enter>
+vnoremap <Silent> * :call VisualSelection('f', '')<Enter>
+vnoremap <Silent> # :call VisualSelection('b', '')<Enter>
 
 
 
@@ -412,6 +415,7 @@ source $VIMRUNTIME/menu.vim
 
 """" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Draw a ring around the next match
 function! HLNext (blinktime)
     highlight RedOnRed ctermfg=red ctermbg=red
     let [bufnum, lnum, col, off] = getpos('.')

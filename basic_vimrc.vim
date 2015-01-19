@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.1 - 16-17/01/2014
+"       1.2 - 18-19/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -271,11 +271,12 @@ nnoremap <Silent> n   n:call HLNext(0.4)<Enter>
 nnoremap <Silent> N   N:call HLNext(0.4)<Enter>
 
 " NORMAL AND VISUAL MODES: Shortcut for :s///g
-nmap S  :%s//g<Left><Left>
-vmap S  :B s//g<Left><Left>
+nmap <Leader>sg  :%s//g<Left><Left>
+vmap <Leader>sg  :B s//g<Left><Left>
 
 " Highlight all occurrences of the current word without selecting the next one
 nnoremap <Leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+nmap <2-LeftMouse> <Leader>h
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
 vnoremap <Silent> * :call VisualSelection('f', '')<Enter>

@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.2 - 18-19/01/2014
+"       1.3 - 19-20/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -235,9 +235,9 @@ map <C-l> <C-W>l
 map <leader>pp :setlocal paste!<Enter>
 
 " ALL MODES: Quick paste from OS clipboard
-map <leader>v "+p
+map <leader>v "*p
 
-" NORMAL MODE: Fast saving
+" NORMAL MODE: Fast save
 nmap <leader>w :w!<Enter>
 
 
@@ -338,6 +338,17 @@ vmap <D-j> <M-j>
 vmap <D-k> <M-k>
 endif
 
+" NORMAL, VISUAL MODE: Make Up/Down arrows move a line of text as well
+nmap <Down> <M-j>
+nmap <Up>   <M-k>
+vmap <Down> <M-j>
+vmap <Up>   <M-k>
+
+" NORMAL, VISUAL MODE: Make Left/Right arrows indent/unindent lines
+nmap <Left>  <<Left>
+nmap <Right> ><Right>
+vmap <Left>  <<
+vmap <Right> >
 
 
 """" 8 - BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -370,7 +381,7 @@ map <leader>bc :Bclose<Enter>
 " ALL MODES: Close all the buffers
 map <leader>ba :1,1000 bd!<Enter>
 
-" ALL MODES: Useful mappings for managing tabs (C-PageUp/Down for :tabp/n)
+" ALL MODES: Useful mappings for managing tabs (use C-PageUp/Down for :tabp/n)
 " Open new tab through file search
 map <leader>tf :tabfind <Space>
 map <leader>tn :tabnew<Enter>

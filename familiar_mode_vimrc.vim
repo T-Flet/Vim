@@ -62,6 +62,12 @@ nnoremap <C-f> /
 inoremap <C-f> <Esc>/
 vnoremap <C-f> <Esc>/
 
+" NORMAL, VISUAL MODE: Make arrows behave as arrows (reverting previous maps)
+noremap <Left>  <Left>
+noremap <Right> <Right>
+noremap <Up>    <Up>
+noremap <Down>  <Down>
+
 " NORMAL, VISUAL AND INSERT MODES: Shift-Arrows : visual selection
 nnoremap <S-Right> v<Right>
 nnoremap <S-Left>  v<Left>

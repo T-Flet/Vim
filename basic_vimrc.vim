@@ -117,6 +117,9 @@ set t_Co=256        "Enable 256 colours
 set guitablabel=%M\ %t  "Set label of GUI tab pages lines (requires e above)
 endif
 
+" Remove startup screen message
+set shortmess+=I
+
 " Maximise on Startup (for Windows). Can also be done through shortcut options
 "au GUIEnter * simalt ~x
 
@@ -125,7 +128,7 @@ endif
 """" 3 - TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""
 
 "Font size
-:set guifont=Lucida_Sans_Typewriter:h18:cANSI
+set guifont=Lucida_Sans_Typewriter:h18:cANSI
 
 " Enable syntax highlighting
 syntax on
@@ -256,6 +259,9 @@ set smartcase
 " For regular expressions turn magic on
 set magic
 
+" Deactivate search highlighting on startup
+set viminfo^=h
+
 
 """ MAPPINGS """
 
@@ -271,12 +277,12 @@ nnoremap <Silent> n   n:call HLNext(0.4)<Enter>
 nnoremap <Silent> N   N:call HLNext(0.4)<Enter>
 
 " NORMAL AND VISUAL MODES: Shortcut for :s///g
-nmap <Leader>sg  :%s//g<Left><Left>
-vmap <Leader>sg  :B s//g<Left><Left>
+nmap <leader>sg  :%s//g<Left><Left>
+vmap <leader>sg  :B s//g<Left><Left>
 
 " Highlight all occurrences of the current word without selecting the next one
-nnoremap <Leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
-nmap <2-LeftMouse> <Leader>h
+nnoremap <leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
+nmap <2-LeftMouse> <leader>h
 
 " VISUAL MODE: * and # searchs for the current selection forwards and backwards
 vnoremap <Silent> * :call VisualSelection('f', '')<Enter>
@@ -364,9 +370,10 @@ endtry
 set viminfo^=%
 " and return to last edit position when opening files
 autocmd BufReadPost *
-        \ if line("'\"") > 0 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
+
 
 
 """ MAPPINGS """
@@ -417,11 +424,11 @@ source $VIMRUNTIME/menu.vim
 """ MAPPINGS """
 
 " NORMAL MODE: Reload _vimrc file ($real_vimrc set in the real _vimrc)
-:nmap <leader>r :source $real_vimrc
+nmap <leader>r :source $real_vimrc
 
 " NORMAL MODE: Edit real _vimrc file
-:nmap <leader>real :e $real_vimrc
-:nmap <leader>repo :e $basic_vimrc
+nmap <leader>real :e $real_vimrc
+nmap <leader>repo :e $basic_vimrc
 
 
 
@@ -434,11 +441,11 @@ function! HLNext (blinktime)
     let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
     echo matchlen
     let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
-            \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
-            \ . '\|'
-            \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
-            \ . '\|'
-            \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
+        \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
+        \ . '\|'
+        \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
+        \ . '\|'
+        \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
     let ring = matchadd('RedOnRed', ring_pat, 101)
     redraw
     exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'

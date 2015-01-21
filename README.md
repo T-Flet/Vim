@@ -12,6 +12,7 @@ How to use/Install
 
 The real _vimrc should be edited with your paths and copied into the real Vim
 folder, while the rest of the files should stay in the repository's folder.
+Note: Make sure the paths end with the path separator ( / ).
 
 The different configuration files can be used in different ways, chiefly by
 commenting/uncommenting "source" lines in the real _vimrc:

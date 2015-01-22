@@ -361,7 +361,7 @@ vmap <Right> >
 
 " Specify the behavior when switching between buffers
 try
-set switchbuf=useopen,usetab,newtab
+set switchbuf=useopen,usetab,split,newtab
 set stal=2
 catch
 endtry
@@ -373,6 +373,16 @@ autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \   exe "normal! g`\"" |
     \ endif
+
+" Make session saves save only tabs and help pages (not extra maps and options)
+set sessionoptions=tabpages,help
+" Restore last session on startup if Vim is invoked without arguments.
+autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
+    \ call mkdir($HOME . "/.vim") |
+    \ endif |
+    \ execute "mksession! " . $HOME . "/.vim/Session.vim"
+autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
+    \ execute "source " . $HOME . "/.vim/Session.vim"
 
 
 

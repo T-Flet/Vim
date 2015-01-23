@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.2 - 18-19/01/2014
+"       1.3 - 22-23/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -25,6 +25,7 @@ let $real_vimrc=$VIM."/_vimrc"
 
 let $basic_vimrc=$REPO_PATH."basic_vimrc.vim"
 let $extensions_vimrc=$REPO_PATH."extensions_vimrc.vim"
+let $filetypes_vimrc=$REPO_PATH."filetypes_vimrc.vim"
 let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
 
 
@@ -37,3 +38,5 @@ source $basic_vimrc
 source $familiar_mode_vimrc
 " Extensions configurations
 source $extensions_vimrc
+" Filetypes configurations
+source $filetypes_vimrc

@@ -17,15 +17,15 @@
 
 """" MAPPINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" ALL MODES: Ctrl-Tab,-Shift-Tab : next and previous tab
+" ALL: Ctrl-Tab,-Shift-Tab : next and previous tab
 noremap <C-Tab>   :tabnext<Enter>
 noremap <C-S-Tab> :tabprevious<Enter>
 
-" ALL MODES: Ctrl-t,w : New tab and close tab
+" ALL: Ctrl-t,w : New tab and close tab
 noremap <C-t> :tabnew<Enter>
 noremap <C-w> :tabclose<Enter>
 
-" ALL MODES: Ctrl-x,c,v : cut, copy and paste
+" ALL: Ctrl-x,c,v : cut, copy and paste
 noremap <C-x> "*d
 noremap <C-c> "*y
 noremap <C-v> "*gp
@@ -37,14 +37,14 @@ if !has("unix")
   set guioptions-=a
 endif
 
-" NORMAL AND INSERT MODES: Crtl-z,y : undo and redo
+" NORMAL AND INSERT: Crtl-z,y : undo and redo
 nnoremap <C-z> u
 nnoremap <C-y> <C-r>
 
 inoremap <C-z> <Esc>ui
 inoremap <C-y> <Esc><C-r>i
 
-" NORMAL AND INSERT MODES: Crtl-a : select all
+" NORMAL AND INSERT: Crtl-a : select all
 noremap  <C-A> gggH<C-O>G
 inoremap <C-A> <C-O>gg<C-O>gH<C-O>G
 cnoremap <C-A> <C-C>gggH<C-O>G
@@ -52,23 +52,23 @@ onoremap <C-A> <C-C>gggH<C-O>G
 snoremap <C-A> <C-C>gggH<C-O>G
 xnoremap <C-A> <C-C>ggVG
 
-" NORMAL, VISUAL AND INSERT MODES: Ctrl-s : save
+" NORMAL, VISUAL AND INSERT: Ctrl-s : save
 nnoremap <C-s> :w<Enter>
 vnoremap <C-s> <Esc>:w<Enter>
 inoremap <C-s> <Esc>:w<Enter>
 
-" NORMAL, VISUAL AND INSERT MODES: Crtl-f : find
+" NORMAL, VISUAL AND INSERT: Crtl-f : find
 nnoremap <C-f> /
 inoremap <C-f> <Esc>/
 vnoremap <C-f> <Esc>/
 
-" NORMAL, VISUAL MODE: Make arrows behave as arrows (reverting previous maps)
+" NORMAL, VISUAL: Make arrows behave as arrows (reverting previous maps)
 noremap <Left>  <Left>
 noremap <Right> <Right>
 noremap <Up>    <Up>
 noremap <Down>  <Down>
 
-" NORMAL, VISUAL AND INSERT MODES: Shift-Arrows : visual selection
+" NORMAL, VISUAL AND INSERT: Shift-Arrows : visual selection
 nnoremap <S-Right> v<Right>
 nnoremap <S-Left>  v<Left>
 nnoremap <S-Up>    v<Up>
@@ -84,7 +84,7 @@ inoremap <S-Down>  <Esc>v<Down>
 inoremap <S-Left>  <Esc>v<Left>
 inoremap <S-Right> <Esc>v<Right>
 
-" NORMAL, VISUAL AND INSERT MODES: Alt-Shift-Arrows : blockwise-visual selection
+" NORMAL, VISUAL AND INSERT: Alt-Shift-Arrows : blockwise-visual selection
 noremap <A-S-Right> <C-v><Right>
 noremap <A-S-Left>  <C-v><Left>
 noremap <A-S-Up>    <C-v><Up>
@@ -100,6 +100,6 @@ inoremap <A-S-Down>  <Esc><C-v><Left>
 inoremap <A-S-Left>  <Esc><C-v><Up>
 inoremap <A-S-Right> <Esc><C-v><Down>
 
-" VISUAL MODE: Backspace deletes selection
+" VISUAL: Backspace deletes selection
 vnoremap <BS> di
 

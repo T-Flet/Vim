@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.3 - 19-20/01/2014
+"       1.4 - 22-23/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -52,7 +52,6 @@ set encoding=utf8
 
 " Use Dos as the standard file type
 set ffs=dos,unix,mac
-
 
 " Use persistent undo
 if has('persistent_undo')
@@ -144,10 +143,10 @@ set background=dark
 
 """ MAPPINGS """
 
-" ALL MODES: Pressing ,ss will toggle and untoggle spell checking
+" ALL: Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<Enter>
 
-" ALL MODES: Shortcuts using <leader>
+" ALL: Shortcuts using <leader>
 map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
@@ -221,27 +220,56 @@ autocmd BufWrite * :call DeleteTrailingWS()
 
 """ MAPPINGS """
 
-" ALL MODES: Map Y to act like D and C, i.e. to yank until EOL,
+" INSERT: Abbreviations for short and long dates
+iab xdate <c-r>=strftime("%d/%m/%y")<cr>
+iab xldate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+
+" ALL: Map Y to act like D and C, i.e. to yank until EOL,
 " rather than act as yy, which is the default
 map Y y$
 
-" ALL MODES: Disable highlight when <leader><Enter> is pressed
+" ALL: Disable highlight when <leader><Enter> is pressed
 map <Silent> <leader><Enter> :noh<Enter>
 
-" ALL MODES: Smart way to move between windows
+" ALL: Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" ALL MODES: Toggle paste mode on and off (mode which does not reformat pastes)
+" ALL: Toggle paste mode on and off (mode which does not reformat pastes)
 map <leader>pp :setlocal paste!<Enter>
 
-" ALL MODES: Quick paste from OS clipboard
+" ALL: Quick paste from OS clipboard
 map <leader>v "*p
 
-" NORMAL MODE: Fast save
+" NORMAL: Fast save
 nmap <leader>w :w!<Enter>
+
+" INSERT: Automatically match parenthesis, square brackets and braces
+inoremap  (  ()<Left>
+inoremap  [  []<Left>
+inoremap  {  {}<Left>
+
+" VISUAL: Same as above but around selection
+vnoremap  (  s()<Esc>P<Right>%
+vnoremap  [  s[]<Esc>P<Right>%
+vnoremap  {  s{}<Esc>P<Right>%
+
+" VISUAL: Same as above but with additional spaces
+vnoremap  )  s(  )<Esc><Left>P<Right><Right>%
+vnoremap  ]  s[  ]<Esc><Left>P<Right><Right>%
+vnoremap  }  s{  }<Esc><Left>P<Right><Right>%
+
+" NORMAL: Automatically match quotes
+inoremap  '  ''<Left>
+inoremap  "  ""<Left>
+inoremap  `  ``<Left>
+
+" VISUAL: Automatically match quotes around selection
+vnoremap  '  s''<Esc>P<Right>
+vnoremap  "  s""<Esc>P<Right>
+vnoremap  `  s``<Esc>P<Right>
 
 
 
@@ -265,18 +293,18 @@ set viminfo^=h
 
 """ MAPPINGS """
 
-" ALL MODES: Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
+" ALL: Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
 map <c-space> ?
 
-" NORMAL MODE: Map Backspace to turn off search highlighting until next search
+" NORMAL: Map Backspace to turn off search highlighting until next search
 nnoremap <BS> :nohl<Enter><BS>
 
-" NORMAL MODE: Hilight matches when jumping to next
+" NORMAL: Hilight matches when jumping to next
 nnoremap <Silent> n   n:call HLNext(0.4)<Enter>
 nnoremap <Silent> N   N:call HLNext(0.4)<Enter>
 
-" NORMAL AND VISUAL MODES: Shortcut for :s///g
+" NORMAL AND VISUAL: Shortcut for :s///g
 nmap <leader>sg  :%s//g<Left><Left>
 vmap <leader>sg  :B s//g<Left><Left>
 
@@ -284,7 +312,7 @@ vmap <leader>sg  :B s//g<Left><Left>
 nnoremap <leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nmap <2-LeftMouse> <leader>h
 
-" VISUAL MODE: * and # searchs for the current selection forwards and backwards
+" VISUAL: * and # searchs for the current selection forwards and backwards
 vnoremap <Silent> * :call VisualSelection('f', '')<Enter>
 vnoremap <Silent> # :call VisualSelection('b', '')<Enter>
 
@@ -327,11 +355,11 @@ set backspace=indent,eol,start
 
 """ MAPPINGS """
 
-" ALL MODES: Treat long lines as break lines (useful when moving around in them)
+" ALL: Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
 
-" NORMAL, VISUAL MODE: Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+" NORMAL, VISUAL: Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<Enter>`z
 nmap <M-k> mz:m-2<Enter>`z
 vmap <M-j> :m'>+<Enter>`<my`>mzgv`yo`z
@@ -344,13 +372,13 @@ vmap <D-j> <M-j>
 vmap <D-k> <M-k>
 endif
 
-" NORMAL, VISUAL MODE: Make Up/Down arrows move a line of text as well
+" NORMAL, VISUAL: Make Up/Down arrows move a line of text as well
 nmap <Down> <M-j>
 nmap <Up>   <M-k>
 vmap <Down> <M-j>
 vmap <Up>   <M-k>
 
-" NORMAL, VISUAL MODE: Make Left/Right arrows indent/unindent lines
+" NORMAL, VISUAL: Make Left/Right arrows indent/unindent lines
 nmap <Left>  <<Left>
 nmap <Right> ><Right>
 vmap <Left>  <<
@@ -388,17 +416,17 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.
 
 """ MAPPINGS """
 
-" ALL MODES: Show all buffers (with shortcuts) and wait for a shortcut for one
+" ALL: Show all buffers (with shortcuts) and wait for a shortcut for one
 nnoremap <leader>bg :buffers<Enter>:buffer<Space>
 
-" ALL MODES: Close the current buffer
+" ALL: Close the current buffer
 command! Bclose call <SID>BufcloseCloseIt()
 map <leader>bc :Bclose<Enter>
 
-" ALL MODES: Close all the buffers
+" ALL: Close all the buffers
 map <leader>ba :1,1000 bd!<Enter>
 
-" ALL MODES: Useful mappings for managing tabs (use C-PageUp/Down for :tabp/n)
+" ALL: Useful mappings for managing tabs (use C-PageUp/Down for :tabp/n)
 " Open new tab through file search
 map <leader>tf :tabfind <Space>
 map <leader>tn :tabnew<Enter>
@@ -408,14 +436,14 @@ map <leader>tc :tabclose<Enter>
 map <leader>tm :tabmove
 map <leader>t<leader> :tabnext
 
-" ALL MODES: Opens a new tab with the current buffer's path
+" ALL: Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<Enter>/
 
-" ALL MODES: Switch CWD to the directory of the open buffer
+" ALL: Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<Enter>:pwd<Enter>
 
-" NORMAL MODE: Let 'tl' toggle between this and the last accessed tab
+" NORMAL: Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
 nmap <leader>tl :exe "tabn ".g:lasttab<Enter>
 au TabLeave * let g:lasttab = tabpagenr()
@@ -433,10 +461,10 @@ source $VIMRUNTIME/menu.vim
 
 """ MAPPINGS """
 
-" NORMAL MODE: Reload _vimrc file ($real_vimrc set in the real _vimrc)
+" NORMAL: Reload _vimrc file ($real_vimrc set in the real _vimrc)
 nmap <leader>r :source $real_vimrc
 
-" NORMAL MODE: Edit real _vimrc file
+" NORMAL: Edit real _vimrc file
 nmap <leader>real :e $real_vimrc
 nmap <leader>repo :e $basic_vimrc
 

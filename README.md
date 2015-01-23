@@ -21,5 +21,6 @@ commenting/uncommenting "source" lines in the real _vimrc:
     Full configuration:     keep everything uncommented
     "Familiar" mode:        keep the "familiar" source uncommented
     Configure extensions:   keep the extensions source uncommented
+    Configure filetypes:    keep the filetypes source uncommented
     Any other way:          comment/uncomment any source you like
 

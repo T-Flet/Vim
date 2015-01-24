@@ -433,7 +433,7 @@ map <leader>tn :tabnew<Enter>
 map <leader>to :tabonly<Enter>
 map <leader>tc :tabclose<Enter>
 " Move tab to X position (starting from 0)
-map <leader>tm :tabmove
+map <leader>tm :tabmove<Space>
 map <leader>t<leader> :tabnext
 
 " ALL: Opens a new tab with the current buffer's path

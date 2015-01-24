@@ -24,3 +24,13 @@ commenting/uncommenting "source" lines in the real _vimrc:
     Configure filetypes:    keep the filetypes source uncommented
     Any other way:          comment/uncomment any source you like
 
+An updater program is provided; it updates this repository's files,
+all extensions and checks Vim's own version.
+
+
+INCOMPLETE STUFF
+===
+
+extensions_vimrc.vim
+filetypes_vimrc.vim
+updater.hs

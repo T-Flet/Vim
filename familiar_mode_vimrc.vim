@@ -100,6 +100,3 @@ inoremap <A-S-Down>  <Esc><C-v><Left>
 inoremap <A-S-Left>  <Esc><C-v><Up>
 inoremap <A-S-Right> <Esc><C-v><Down>
 
-" VISUAL: Backspace deletes selection
-vnoremap <BS> di
-

@@ -34,11 +34,11 @@
 
 ---- 2 - IMPORTS ---------------------------------------------------------------
 
-import zip-archive
+import Codec.Archive.Zip
 
 
 ---- 3 - UPDATE REPOSITORY -----------------------------------------------------
 
---main = do
-  --  extensions <- readFile "extensions_list.txt"
-    --return ()
+main = do
+    extensions <- readFile "extensions_list.txt"
+    return ()

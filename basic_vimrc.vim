@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.4 - 22-23/01/2014
+"       1.5 - 24-25/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -37,9 +37,6 @@ set nocompatible
 " allows intelligent auto-indenting and filetype specific plugins.
 filetype indent plugin on
 
-" Sets how many lines of history VIM has to remember
-set history=1000
-
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -50,8 +47,26 @@ let g:mapleader = ","
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Use Dos as the standard file type
-set ffs=dos,unix,mac
+" Use Dos as the standard file type and handle Unix's and Mac's
+set fileformats=dos,unix,mac
+
+" Set what information should be stored in the viminfo file
+"           +--Remember buffer list
+"           | +--Disable hlsearch while loading viminfo
+"           | | +--Remember marks for last 500 files
+"           | | |    +--Remember up to 10000 lines in each register
+"           | | |    |      +--Remember up to 1MB in each register
+"           | | |    |      |     +--Remember last 1000 search patterns
+"           | | |    |      |     |     +---Remember last 1000 commands
+"           | | |    |      |     |     |
+"           v v v    v      v     v     v
+set viminfo=%,h,'500,<10000,s1000,/1000,:1000
+
+" Return to last edit position when opening files
+autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \   exe "normal! g`\"" |
+    \ endif
 
 " Use persistent undo
 if has('persistent_undo')
@@ -69,6 +84,9 @@ endif
 
 """" 2 - USER INTERFACE """"""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Show file title in window title
+set title
+
 " Make abandoned buffers hidden, and generate a single undo history for all
 set hidden
 
@@ -77,8 +95,20 @@ set hidden
 set cmdheight=2
 " Show partial commands in the last line of the screen
 set showcmd
-" Better command-line completion
+
+ "Adjust completions to match case
+set infercase
+" Enable command-line completions visualisation menu
 set wildmenu
+" Show list of completions and complete as much as then iterate full completions
+set wildmode=list:longest,full
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+else
+    set wildignore+=.git\*,.hg\*,.svn\*
+endif
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
@@ -175,31 +205,13 @@ if has('mouse')
 set mouse=a
 endif
 
-" Quickly time out on keycodes, but never time out on MAPPINGS
+" Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
 " Modelines have historically been a source of security vulnerabilities.
 " Disable them and use secure script:
 " http://www.vim.org/scripts/script.php?script_id=1876
 set nomodeline
-
-" Open any file with a pre-existing swapfile in readonly mode
-augroup NoSimultaneousEdits
-    autocmd!
-    autocmd SwapExists * let v:swapchoice = 'o'
-    autocmd SwapExists * echomsg ErrorMsg
-    autocmd SwapExists * echo 'Duplicate edit session (readonly)'
-    autocmd SwapExists * echohl None
-    autocmd SwapExists * sleep 2
-augroup END
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-set wildignore+=.git\*,.hg\*,.svn\*
-endif
 
 " Turn semi-permanent backups and swapfiles off, but leave backup during writes
 set nobackup
@@ -213,6 +225,12 @@ exe "normal mz"
 exe "normal `z"
 endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
+
+" Make selection of areas with no text possible in visual block mode
+set virtualedit=block
+
+" Add angle brackets to matching pairs (like all parentheses)
+set matchpairs+=<:>
 
 " Change initial directory. Can also be done through shortcut options
 "cd FOLDER
@@ -245,6 +263,12 @@ map <leader>v "*p
 
 " NORMAL: Fast save
 nmap <leader>w :w!<Enter>
+
+" VISUAL: Make Backspace delete selection and go in insert mode
+vnoremap <BS> di
+
+" VISUAL: Select all shortcut
+noremap <leader>a VGo1G
 
 " INSERT: Automatically match parenthesis, square brackets and braces
 inoremap  (  ()<Left>
@@ -389,18 +413,11 @@ vmap <Right> >
 
 " Specify the behavior when switching between buffers
 try
-set switchbuf=useopen,usetab,split,newtab
-set stal=2
+    set switchbuf=useopen,usetab,split,newtab
+    " Make tabline always visible
+    set stal=2
 catch
 endtry
-
-" Remember info about open buffers on close
-set viminfo^=%
-" and return to last edit position when opening files
-autocmd BufReadPost *
-    \ if line("'\"") > 0 && line("'\"") <= line("$") |
-    \   exe "normal! g`\"" |
-    \ endif
 
 " Make session saves save only tabs and help pages (not extra maps and options)
 set sessionoptions=tabpages,help

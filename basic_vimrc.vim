@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.5 - 24-25/01/2014
+"       1.6 - 25-26/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -137,13 +137,13 @@ call matchadd('ColorColumn', '\%81v', 100)
 
 " Set extra options when running in GUI mode: in total: gmrLtaAc
 if has("gui_running")
-set guioptions+=aA  "Make selection in all modes available to other applications
-set guioptions+=c   "Console instead of popups for simple choices
-set guioptions-=T   "No Toolbar
-"set guioptions-=m   "No menubar
-set guioptions-=e   "Allow non-GUI tab pages lines
-set t_Co=256        "Enable 256 colours
-set guitablabel=%M\ %t  "Set label of GUI tab pages lines (requires e above)
+    set guioptions+=aA  "Make selection in all modes available to other applications
+    set guioptions+=c   "Console instead of popups for simple choices
+    set guioptions-=T   "No Toolbar
+    set guioptions-=m   "No menubar
+    set guioptions-=e   "Allow non-GUI tab pages lines
+    set t_Co=256        "Enable 256 colours
+    set guitablabel=%M\ %t  "Set label of GUI tab pages lines (requires e above)
 endif
 
 " Remove startup screen message
@@ -151,6 +151,11 @@ set shortmess+=I
 
 " Maximise on Startup (for Windows). Can also be done through shortcut options
 "au GUIEnter * simalt ~x
+
+""" MAPPINGS """
+
+" Restore Menu bar (use _vimrc reload to remove it: <leader>r)
+nmap <leader>m :set guioptions+=m
 
 
 
@@ -247,7 +252,7 @@ iab xldate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 map Y y$
 
 " ALL: Disable highlight when <leader><Enter> is pressed
-map <Silent> <leader><Enter> :noh<Enter>
+map <silent> <leader><Enter> :noh<Enter>
 
 " ALL: Smart way to move between windows
 map <C-j> <C-W>j
@@ -322,11 +327,11 @@ map <space> /
 map <c-space> ?
 
 " NORMAL: Map Backspace to turn off search highlighting until next search
-nnoremap <BS> :nohl<Enter><BS>
+nnoremap <silent> <BS> :nohl<Enter><BS>
 
 " NORMAL: Hilight matches when jumping to next
-nnoremap <Silent> n   n:call HLNext(0.4)<Enter>
-nnoremap <Silent> N   N:call HLNext(0.4)<Enter>
+nnoremap <silent> n   n:call HLNext(0.4)<Enter>
+nnoremap <silent> N   N:call HLNext(0.4)<Enter>
 
 " NORMAL AND VISUAL: Shortcut for :s///g
 nmap <leader>sg  :%s//g<Left><Left>
@@ -336,9 +341,9 @@ vmap <leader>sg  :B s//g<Left><Left>
 nnoremap <leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nmap <2-LeftMouse> <leader>h
 
-" VISUAL: * and # searchs for the current selection forwards and backwards
-vnoremap <Silent> * :call VisualSelection('f', '')<Enter>
-vnoremap <Silent> # :call VisualSelection('b', '')<Enter>
+" VISUAL: * and # search for the current selection forwards and backwards
+vnoremap <silent> * :call VisualSelection('f', '')<Enter>
+vnoremap <silent> # :call VisualSelection('b', '')<Enter>
 
 
 
@@ -366,6 +371,33 @@ set tw=120
 set wrap
 
 
+""" MAPPINGS """
+
+" Indent/unindent current block
+nmap %% $>i}``
+nmap $$ $<i}``
+
+" NORMAL, VISUAL: Indent/Unindent a line of text using ALT+[hl]
+nmap <M-h> <<Left>
+nmap <M-l> ><Right>
+vmap <M-h> <<
+vmap <M-l> >
+
+" NORMAL, VISUAL: Make Left/Right arrows indent/unindent lines as well
+nmap <Left>  <M-h>
+nmap <Right> <M-l>
+vmap <Left>  <M-h>
+vmap <Right> <M-l>
+
+" Make the previous map group work for the Command key on Mac
+if has("mac") || has("macunix")
+    nmap <D-h> <M-h>
+    nmap <D-l> <M-l>
+    vmap <D-h> <M-h>
+vmap <D-l> <M-l>
+endif
+
+
 
 """" 7 - MOTIONS AND MOVING AROUND """""""""""""""""""""""""""""""""""""""""""""
 
@@ -383,18 +415,11 @@ set backspace=indent,eol,start
 map j gj
 map k gk
 
-" NORMAL, VISUAL: Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
+" NORMAL, VISUAL: Move a line of text using ALT+[jk]
 nmap <M-j> mz:m+<Enter>`z
 nmap <M-k> mz:m-2<Enter>`z
 vmap <M-j> :m'>+<Enter>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<Enter>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-nmap <D-j> <M-j>
-nmap <D-k> <M-k>
-vmap <D-j> <M-j>
-vmap <D-k> <M-k>
-endif
 
 " NORMAL, VISUAL: Make Up/Down arrows move a line of text as well
 nmap <Down> <M-j>
@@ -402,11 +427,14 @@ nmap <Up>   <M-k>
 vmap <Down> <M-j>
 vmap <Up>   <M-k>
 
-" NORMAL, VISUAL: Make Left/Right arrows indent/unindent lines
-nmap <Left>  <<Left>
-nmap <Right> ><Right>
-vmap <Left>  <<
-vmap <Right> >
+" Make the previous map group work for the Command key on Mac
+if has("mac") || has("macunix")
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
+endif
+
 
 
 """" 8 - BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -428,7 +456,6 @@ autocmd VimLeave * nested if (!isdirectory($HOME . "/.vim")) |
     \ execute "mksession! " . $HOME . "/.vim/Session.vim"
 autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.vim") |
     \ execute "source " . $HOME . "/.vim/Session.vim"
-
 
 
 """ MAPPINGS """

@@ -37,10 +37,11 @@ if !has("unix")
   set guioptions-=a
 endif
 
-" NORMAL AND INSERT: Crtl-z,y : undo and redo
+" NORMAL, VISUAL AND INSERT: Crtl-z,y : undo and redo
 nnoremap <C-z> u
 nnoremap <C-y> <C-r>
-
+vnoremap <C-z> <Esc>u
+vnoremap <C-y> <Esc><C-r>
 inoremap <C-z> <Esc>ui
 inoremap <C-y> <Esc><C-r>i
 

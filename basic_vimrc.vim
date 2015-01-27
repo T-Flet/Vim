@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.6 - 25-26/01/2014
+"       1.7 - 26-27/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -237,6 +237,18 @@ set virtualedit=block
 " Add angle brackets to matching pairs (like all parentheses)
 set matchpairs+=<:>
 
+" Work out what the comment character is, by filetype...
+autocmd FileType             *sh,awk,python,perl,perl6,ruby    let b:cmt = exists('b:cmt') ? b:cmt : '#'
+autocmd FileType             vim                               let b:cmt = exists('b:cmt') ? b:cmt : '"'
+autocmd FileType             haskell                           let b:cmt = exists('b:cmt') ? b:cmt : '--'
+autocmd BufNewFile,BufRead   *.vim,.vimrc                      let b:cmt = exists('b:cmt') ? b:cmt : '"'
+autocmd BufNewFile,BufRead   *                                 let b:cmt = exists('b:cmt') ? b:cmt : '#'
+autocmd BufNewFile,BufRead   *.p[lm],.t                        let b:cmt = exists('b:cmt') ? b:cmt : '#'
+
+" NORMAL OR VISUAL: Toggle (respectively), line and selection lines commenting
+nmap <silent> <leader>k :call ToggleComment()<CR>
+vmap <silent> <leader>k :call ToggleBlock()<CR>
+
 " Change initial directory. Can also be done through shortcut options
 "cd FOLDER
 
@@ -359,6 +371,7 @@ set smartindent
 " Indentation settings for using 4 spaces instead of tabs.
 " Use :retab to convert all tabs in a file under these settings.
 set expandtab      " Use spaces instead of tabs
+set shiftround     " Always indent/unindent to nearest tabstop
 set smarttab       " Behave normally with tabs and backspaces at line beginnings
 set shiftwidth=4   " Use indents of 4 spaces
 set tabstop=4      " An indentation every four columns
@@ -515,6 +528,54 @@ nmap <leader>repo :e $basic_vimrc
 
 
 """" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Work out whether the line has a comment then reverse that condition
+function! ToggleComment ()
+    " Determine the comment character(s)
+    let comment_char = exists('b:cmt') ? b:cmt : '#'
+
+    " Grab the line and work out whether it's commented
+    let currline = getline(".")
+
+    " If so, remove it and rewrite the line
+    if currline =~ '^' . comment_char
+        let repline = substitute(currline, '^' . comment_char, "", "")
+        call setline(".", repline)
+
+    " Otherwise, insert it
+    else
+        let repline = substitute(currline, '^', comment_char, "")
+        call setline(".", repline)
+    endif
+endfunction
+
+" Toggle comments down an entire visual selection of lines
+function! ToggleBlock () range
+    " Determine the comment character(s)
+    let comment_char = exists('b:cmt') ? b:cmt : '#'
+
+    " Start at the first line
+    let linenum = a:firstline
+
+    " Get all the lines, and decide their comment state by examining the first
+    let currline = getline(a:firstline, a:lastline)
+    if currline[0] =~ '^' . comment_char
+        " If the first line is commented, decomment all
+        for line in currline
+            let repline = substitute(line, '^' . comment_char, "", "")
+            call setline(linenum, repline)
+            let linenum += 1
+        endfor
+    else
+        " Otherwise, encomment all
+        for line in currline
+            let repline = substitute(line, '^\('. comment_char . '\)\?', comment_char, "")
+            call setline(linenum, repline)
+            let linenum += 1
+        endfor
+    endif
+endfunction
+
 
 " Draw a ring around the next match
 function! HLNext (blinktime)

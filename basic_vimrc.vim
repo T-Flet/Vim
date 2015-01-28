@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.7 - 26-27/01/2014
+"       1.8 - 27-28/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -118,7 +118,7 @@ set number
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 " Format the status line
-let &statusline=" Buf:%n   %{HasPaste()}%f%m%r%h %w  PWD: %.40{getcwd()}   %y  Line: %l/%L Col: %c"
+let &statusline=" Buf:%n   %{HasPaste()}%f%m%r%h %w  CWD: %.40{getcwd()}   %y  Line: %l/%L Col: %c"
 
 " Show matching brackets when text indicator is over them
 set showmatch
@@ -155,7 +155,12 @@ set shortmess+=I
 """ MAPPINGS """
 
 " Restore Menu bar (use _vimrc reload to remove it: <leader>r)
-nmap <leader>m :set guioptions+=m
+nmap <leader>m :set guioptions+=m<Enter>
+
+" Toggle cursor row highlighting on request...
+" highlight CursorLine   term=bold ctermfg=black ctermbg=cyan  cterm=bold
+highlight CursorLine   term=bold cterm=inverse
+map <silent> <leader>R :set cursorline!<Enter>
 
 
 
@@ -335,8 +340,13 @@ set viminfo^=h
 """ MAPPINGS """
 
 " ALL: Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+noremap <space> /
+noremap <c-space> ?
+
+" NORMAL: Extend previous search query
+nnoremap //   /<C-R>/
+" Same, but put an or ("|") after it
+nnoremap ///  /<C-R>/\<BAR>
 
 " NORMAL: Map Backspace to turn off search highlighting until next search
 nnoremap <silent> <BS> :nohl<Enter><BS>
@@ -352,6 +362,9 @@ vmap <leader>sg  :B s//g<Left><Left>
 " Highlight all occurrences of the current word without selecting the next one
 nnoremap <leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nmap <2-LeftMouse> <leader>h
+
+" NORMAL: Make * respect smartcase and also set @/ (to enable 'n' and 'N')
+nmap *  :let @/ = '\<'.expand('<cword>').'\>' ==? @/ ? @/ : '\<'.expand('<cword>').'\>'<CR>n
 
 " VISUAL: * and # search for the current selection forwards and backwards
 vnoremap <silent> * :call VisualSelection('f', '')<Enter>
@@ -492,9 +505,7 @@ map <leader>tc :tabclose<Enter>
 " Move tab to X position (starting from 0)
 map <leader>tm :tabmove<Space>
 map <leader>t<leader> :tabnext
-
-" ALL: Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
+" Open a new tab with the current buffer's path
 map <leader>te :tabedit <c-r>=expand("%:p:h")<Enter>/
 
 " ALL: Switch CWD to the directory of the open buffer
@@ -635,7 +646,7 @@ function! HasPaste()
 endfunction
 
 
-" Don't close window, when deleting a buffer
+" Don't close the window when deleting a buffer
 function! <SID>BufcloseCloseIt()
     let l:currentBufNum = bufnr("%")
     let l:alternateBufNum = bufnr("#")

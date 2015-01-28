@@ -18,6 +18,7 @@ The different configuration files can be used in different ways, chiefly by
 commenting/uncommenting "source" lines in the real _vimrc:
 
     Basic configuration:    keep only the basic source uncommented
+    Advanced configuration: keep the basic and the advanced sources uncommented
     Full configuration:     keep everything uncommented
     "Familiar" mode:        keep the "familiar" source uncommented
     Configure extensions:   keep the extensions source uncommented
@@ -31,6 +32,7 @@ all extensions and checks Vim's own version.
 INCOMPLETE STUFF
 ===
 
+advanced_vimrc.vim
 extensions_vimrc.vim
 filetypes_vimrc.vim
 updater.hs

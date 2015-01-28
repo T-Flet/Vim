@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.3 - 22-23/01/2014
+"       1.4 - 27-28/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -24,6 +24,7 @@ let $REPO_PATH="C:/Users/Thomas/OneDrive/Programming/Vim/Vim/"
 let $real_vimrc=$VIM."/_vimrc"
 
 let $basic_vimrc=$REPO_PATH."basic_vimrc.vim"
+let $advanced_vimrc=$REPO_PATH."advanced_vimrc.vim"
 let $extensions_vimrc=$REPO_PATH."extensions_vimrc.vim"
 let $filetypes_vimrc=$REPO_PATH."filetypes_vimrc.vim"
 let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
@@ -34,6 +35,8 @@ let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
 
 " Basic Vim configuration
 source $basic_vimrc
+" Advanced Vim configuration features
+source $advanced_vimrc
 " "familiar" mappings
 source $familiar_mode_vimrc
 " Extensions configurations

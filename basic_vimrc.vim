@@ -131,10 +131,6 @@ set scrolloff=7
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-" Make the 81st column of long lines stand out
-highlight ColorColumn ctermbg=green
-call matchadd('ColorColumn', '\%81v', 100)
-
 " Set extra options when running in GUI mode: in total: gmrLtaAc
 if has("gui_running")
     set guioptions+=aA  "Make selection in all modes available to other applications
@@ -150,17 +146,13 @@ endif
 set shortmess+=I
 
 " Maximise on Startup (for Windows). Can also be done through shortcut options
-"au GUIEnter * simalt ~x
+au GUIEnter * simalt ~x
+
 
 """ MAPPINGS """
 
 " Restore Menu bar (use _vimrc reload to remove it: <leader>r)
 nmap <leader>m :set guioptions+=m<Enter>
-
-" Toggle cursor row highlighting on request...
-" highlight CursorLine   term=bold ctermfg=black ctermbg=cyan  cterm=bold
-highlight CursorLine   term=bold cterm=inverse
-map <silent> <leader>R :set cursorline!<Enter>
 
 
 
@@ -174,14 +166,26 @@ syntax on
 
 " Set colourscheme
 try
-colorscheme slate
+    colorscheme slate
 catch
 endtry
 
 set background=dark
 
+" Make the 81st column of long lines stand out
+highlight ColorColumn guibg=DarkGreen
+call matchadd('ColorColumn', '\%81v', 100)
+
+" Set row number colour (no row highlighting whatsoever)
+highlight CursorLine term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+highlight CursorLineNR guifg=Orange ""guibg=Black " No background change
+set cursorline
+
 
 """ MAPPINGS """
+
+" Enable cursor row highlighting; reload _vimrc to remove (<leader>r)
+map <silent> <leader>R :highlight CursorLine guibg=Black<Enter>
 
 " ALL: Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<Enter>
@@ -267,9 +271,6 @@ iab xldate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 " ALL: Map Y to act like D and C, i.e. to yank until EOL,
 " rather than act as yy, which is the default
 map Y y$
-
-" ALL: Disable highlight when <leader><Enter> is pressed
-map <silent> <leader><Enter> :noh<Enter>
 
 " ALL: Smart way to move between windows
 map <C-j> <C-W>j
@@ -590,7 +591,7 @@ endfunction
 
 " Draw a ring around the next match
 function! HLNext (blinktime)
-    highlight RedOnRed ctermfg=red ctermbg=red
+    highlight RedOnRed guifg=Black guibg=DarkOrange
     let [bufnum, lnum, col, off] = getpos('.')
     let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
     echo matchlen

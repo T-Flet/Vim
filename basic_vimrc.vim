@@ -216,7 +216,7 @@ set tm=500
 
 " Enable use of the mouse for all modes if possible
 if has('mouse')
-set mouse=a
+    set mouse=a
 endif
 
 " Quickly time out on keycodes, but never time out on mappings
@@ -233,11 +233,6 @@ set noswapfile
 set writebackup
 
 " Delete trailing white space on save
-func! DeleteTrailingWS()
-exe "normal mz"
-%s/\s\+$//ge
-exe "normal `z"
-endfunc
 autocmd BufWrite * :call DeleteTrailingWS()
 
 " Make selection of areas with no text possible in visual block mode
@@ -245,18 +240,6 @@ set virtualedit=block
 
 " Add angle brackets to matching pairs (like all parentheses)
 set matchpairs+=<:>
-
-" Work out what the comment character is, by filetype...
-autocmd FileType             *sh,awk,python,perl,perl6,ruby    let b:cmt = exists('b:cmt') ? b:cmt : '#'
-autocmd FileType             vim                               let b:cmt = exists('b:cmt') ? b:cmt : '"'
-autocmd FileType             haskell                           let b:cmt = exists('b:cmt') ? b:cmt : '--'
-autocmd BufNewFile,BufRead   *.vim,.vimrc                      let b:cmt = exists('b:cmt') ? b:cmt : '"'
-autocmd BufNewFile,BufRead   *                                 let b:cmt = exists('b:cmt') ? b:cmt : '#'
-autocmd BufNewFile,BufRead   *.p[lm],.t                        let b:cmt = exists('b:cmt') ? b:cmt : '#'
-
-" NORMAL OR VISUAL: Toggle (respectively), line and selection lines commenting
-nmap <silent> <leader>k :call ToggleComment()<CR>
-vmap <silent> <leader>k :call ToggleBlock()<CR>
 
 " Change initial directory. Can also be done through shortcut options
 "cd FOLDER
@@ -281,8 +264,11 @@ map <C-l> <C-W>l
 " ALL: Toggle paste mode on and off (mode which does not reformat pastes)
 map <leader>pp :setlocal paste!<Enter>
 
-" ALL: Quick paste from OS clipboard
-map <leader>v "*p
+" ALL: Quick cut, copy and paste from OS clipboard
+noremap <leader>x "*d
+noremap <leader>c "*y
+noremap <leader>v "*gp
+inoremap <leader>v <Esc>"*gpi
 
 " NORMAL: Fast save
 nmap <leader>w :w!<Enter>
@@ -333,9 +319,6 @@ set smartcase
 
 " For regular expressions turn magic on
 set magic
-
-" Deactivate search highlighting on startup
-set viminfo^=h
 
 
 """ MAPPINGS """
@@ -405,23 +388,23 @@ nmap %% $>i}``
 nmap $$ $<i}``
 
 " NORMAL, VISUAL: Indent/Unindent a line of text using ALT+[hl]
-nmap <M-h> <<Left>
-nmap <M-l> ><Right>
-vmap <M-h> <<
-vmap <M-l> >
+nmap <A-h> <<Left>
+nmap <A-l> ><Right>
+vmap <A-h> <<
+vmap <A-l> >
 
 " NORMAL, VISUAL: Make Left/Right arrows indent/unindent lines as well
-nmap <Left>  <M-h>
-nmap <Right> <M-l>
-vmap <Left>  <M-h>
-vmap <Right> <M-l>
+nmap <Left>  <A-h>
+nmap <Right> <A-l>
+vmap <Left>  <A-h>
+vmap <Right> <A-l>
 
 " Make the previous map group work for the Command key on Mac
 if has("mac") || has("macunix")
-    nmap <D-h> <M-h>
-    nmap <D-l> <M-l>
-    vmap <D-h> <M-h>
-vmap <D-l> <M-l>
+    nmap <D-h> <A-h>
+    nmap <D-l> <A-l>
+    vmap <D-h> <A-h>
+    vmap <D-l> <A-l>
 endif
 
 
@@ -506,16 +489,15 @@ map <leader>tc :tabclose<Enter>
 " Move tab to X position (starting from 0)
 map <leader>tm :tabmove<Space>
 map <leader>t<leader> :tabnext
+" NORMAL: Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <leader>tl :exe "tabn ".g:lasttab<Enter>
+au TabLeave * let g:lasttab = tabpagenr()
 " Open a new tab with the current buffer's path
 map <leader>te :tabedit <c-r>=expand("%:p:h")<Enter>/
 
 " ALL: Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<Enter>:pwd<Enter>
-
-" NORMAL: Let 'tl' toggle between this and the last accessed tab
-let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<Enter>
-au TabLeave * let g:lasttab = tabpagenr()
 
 
 
@@ -541,52 +523,12 @@ nmap <leader>repo :e $basic_vimrc
 
 """" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Work out whether the line has a comment then reverse that condition
-function! ToggleComment ()
-    " Determine the comment character(s)
-    let comment_char = exists('b:cmt') ? b:cmt : '#'
-
-    " Grab the line and work out whether it's commented
-    let currline = getline(".")
-
-    " If so, remove it and rewrite the line
-    if currline =~ '^' . comment_char
-        let repline = substitute(currline, '^' . comment_char, "", "")
-        call setline(".", repline)
-
-    " Otherwise, insert it
-    else
-        let repline = substitute(currline, '^', comment_char, "")
-        call setline(".", repline)
-    endif
-endfunction
-
-" Toggle comments down an entire visual selection of lines
-function! ToggleBlock () range
-    " Determine the comment character(s)
-    let comment_char = exists('b:cmt') ? b:cmt : '#'
-
-    " Start at the first line
-    let linenum = a:firstline
-
-    " Get all the lines, and decide their comment state by examining the first
-    let currline = getline(a:firstline, a:lastline)
-    if currline[0] =~ '^' . comment_char
-        " If the first line is commented, decomment all
-        for line in currline
-            let repline = substitute(line, '^' . comment_char, "", "")
-            call setline(linenum, repline)
-            let linenum += 1
-        endfor
-    else
-        " Otherwise, encomment all
-        for line in currline
-            let repline = substitute(line, '^\('. comment_char . '\)\?', comment_char, "")
-            call setline(linenum, repline)
-            let linenum += 1
-        endfor
-    endif
-endfunction
+" Delete trailing White Space
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
 
 
 " Draw a ring around the next match

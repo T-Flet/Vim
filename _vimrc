@@ -25,8 +25,8 @@ let $real_vimrc=$VIM."/_vimrc"
 
 let $basic_vimrc=$REPO_PATH."basic_vimrc.vim"
 let $advanced_vimrc=$REPO_PATH."advanced_vimrc.vim"
-let $extensions_vimrc=$REPO_PATH."extensions_vimrc.vim"
 let $filetypes_vimrc=$REPO_PATH."filetypes_vimrc.vim"
+let $extensions_vimrc=$REPO_PATH."extensions_vimrc.vim"
 let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
 
 
@@ -37,9 +37,9 @@ let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
 source $basic_vimrc
 " Advanced Vim configuration features
 source $advanced_vimrc
-" "familiar" mappings
-source $familiar_mode_vimrc
-" Extensions configurations
-source $extensions_vimrc
 " Filetypes configurations
 source $filetypes_vimrc
+" Extensions configurations
+source $extensions_vimrc
+" "familiar" mappings
+source $familiar_mode_vimrc

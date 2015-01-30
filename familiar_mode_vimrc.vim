@@ -29,7 +29,6 @@ noremap <C-w> :tabclose<Enter>
 noremap <C-x> "*d
 noremap <C-c> "*y
 noremap <C-v> "*gp
-
 inoremap <C-v> <Esc>"*gpi
 
 " For Ctrl-v to work on Unix, autoselect must be off.

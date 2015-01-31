@@ -18,12 +18,14 @@ Some Nice Features
 
 A very small selection of the many implemented settings is:
 
-    Session tabs restoration at startup.
-    Alt-[hjkl] to move lines vertically and horizontally (indent/unindent)
-    Double click on a word to show matches.
-    GUI features: useful statusbar contents, next match flash highlighting...
-    Many extra <leader> mappings (keyboard shortcuts).
-    An optional "familiar" mode wich enables commonly known non-Vim shortcuts.
+    - Session tabs restoration at startup.
+    - Alt-[hjkl] to move lines vertically and horizontally (indent/unindent)
+    - * and # also work as proper word search queries (highlighting and all)
+    - Double click on a word to show matches.
+    - GUI features: useful statusbar contents, next match flash highlighting...
+    - Useful <leader>r shortcut to reload the _vimrc (fixes almost anything).
+    - Many extra <leader> mappings (keyboard shortcuts).
+    - An optional "familiar" mode wich enables commonly known non-Vim shortcuts.
 
 
 How to use/Install
@@ -50,10 +52,14 @@ How to use/Install
 
         Familiar:   Contains all the necessary settings to make Vim behave more
                     or less like a "normal" text editor, such as the
-                    Ctrl+[xcvzya] key mappings and making the arrows move the
+                    Ctrl+[xcvzyaf] key mappings and making the arrows move the
                     cursor instead of text lines (as set in the Basic file).
                     Useful mode while learning to properly use Vim or in order
                     not to give up known and common keyboard shortcuts.
+                    This mode DOES NOT take away any functionality from the
+                    other configuration files; it simply adds the "familiar"
+                    options, which you can choose not to use, but some of
+                    which are quite useful.
 
 4 - Copy the edited _vimrc file to your Vim installation folder.
 

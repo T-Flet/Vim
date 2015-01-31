@@ -26,9 +26,9 @@ noremap <C-t> :tabnew<Enter>
 noremap <C-w> :tabclose<Enter>
 
 " ALL: Ctrl-x,c,v : cut, copy and paste
-noremap <C-x> "*d
-noremap <C-c> "*y
-noremap <C-v> "*gp
+noremap  <C-x> "*d
+noremap  <C-c> "*y
+noremap  <C-v> "*gp
 inoremap <C-v> <Esc>"*gpi
 
 " For Ctrl-v to work on Unix, autoselect must be off.

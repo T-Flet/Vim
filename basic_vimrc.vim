@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.8 - 27-28/01/2014
+"       1.9 - 30-31/01/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -72,10 +72,8 @@ autocmd BufReadPost *
 if has('persistent_undo')
     " Save all undo files in a single location (less messy, more risky)...
     set undodir=$HOME/tmp/.VIM_UNDO_FILES
-
     " Save a lot of back-history...
     set undolevels=5000
-
     " Actually switch on persistent undo
     set undofile
 endif
@@ -110,14 +108,11 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-" Display the cursor position on the last line of the screen or in the status
-" line of a window
-set ruler
 " Display line numbers on the left
 set number
 " Always display the status line, even if only one window is displayed
 set laststatus=2
-" Format the status line
+" Format the status line (Includes what "set ruler would have enabled")
 let &statusline=" Buf:%n   %{HasPaste()}%f%m%r%h %w  CWD: %.40{getcwd()}   %y  Line: %l/%L Col: %c"
 
 " Show matching brackets when text indicator is over them
@@ -152,13 +147,13 @@ au GUIEnter * simalt ~x
 """ MAPPINGS """
 
 " Restore Menu bar (use _vimrc reload to remove it: <leader>r)
-nmap <leader>m :set guioptions+=m<Enter>
+nmap <leader>m :set guioptions+=m<CR>
 
 
 
 """" 3 - TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""
 
-"Font size
+" Set font and size
 set guifont=Lucida_Sans_Typewriter:h18:cANSI
 
 " Enable syntax highlighting
@@ -172,10 +167,6 @@ endtry
 
 set background=dark
 
-" Make the 81st column of long lines stand out
-highlight ColorColumn guibg=DarkGreen
-call matchadd('ColorColumn', '\%81v', 100)
-
 " Set row number colour (no row highlighting whatsoever)
 highlight CursorLine term=NONE cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
 highlight CursorLineNR guifg=Orange ""guibg=Black " No background change
@@ -185,10 +176,10 @@ set cursorline
 """ MAPPINGS """
 
 " Enable cursor row highlighting; reload _vimrc to remove (<leader>r)
-map <silent> <leader>R :highlight CursorLine guibg=Black<Enter>
+map <silent> <leader>R :highlight CursorLine guibg=Black<CR>
 
 " ALL: Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<Enter>
+map <leader>ss :setlocal spell!<CR>
 
 " ALL: Shortcuts using <leader>
 map <leader>sn ]s
@@ -223,7 +214,7 @@ endif
 set notimeout ttimeout ttimeoutlen=200
 
 " Modelines have historically been a source of security vulnerabilities.
-" Disable them and use secure script:
+" Disable them. A secure script would be:
 " http://www.vim.org/scripts/script.php?script_id=1876
 set nomodeline
 
@@ -231,9 +222,6 @@ set nomodeline
 set nobackup
 set noswapfile
 set writebackup
-
-" Delete trailing white space on save
-autocmd BufWrite * :call DeleteTrailingWS()
 
 " Make selection of areas with no text possible in visual block mode
 set virtualedit=block
@@ -262,16 +250,16 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " ALL: Toggle paste mode on and off (mode which does not reformat pastes)
-map <leader>pp :setlocal paste!<Enter>
+map <leader>pp :setlocal paste!<CR>
 
 " ALL: Quick cut, copy and paste from OS clipboard
-noremap <leader>x "*d
-noremap <leader>c "*y
-noremap <leader>v "*gp
+noremap  <leader>x "*d
+noremap  <leader>c "*y
+noremap  <leader>v "*gp
 inoremap <leader>v <Esc>"*gpi
 
 " NORMAL: Fast save
-nmap <leader>w :w!<Enter>
+nmap <leader>w :w!<CR>
 
 " VISUAL: Make Backspace delete selection and go in insert mode
 vnoremap <BS> di
@@ -284,25 +272,25 @@ inoremap  (  ()<Left>
 inoremap  [  []<Left>
 inoremap  {  {}<Left>
 
-" VISUAL: Same as above but around selection
-vnoremap  (  s()<Esc>P<Right>%
-vnoremap  [  s[]<Esc>P<Right>%
-vnoremap  {  s{}<Esc>P<Right>%
-
-" VISUAL: Same as above but with additional spaces
-vnoremap  )  s(  )<Esc><Left>P<Right><Right>%
-vnoremap  ]  s[  ]<Esc><Left>P<Right><Right>%
-vnoremap  }  s{  }<Esc><Left>P<Right><Right>%
-
 " NORMAL: Automatically match quotes
 inoremap  '  ''<Left>
 inoremap  "  ""<Left>
 inoremap  `  ``<Left>
 
+" VISUAL: Same as above but around selection
+vnoremap  <leader>(  s()<Esc>P<Right>%
+vnoremap  <leader>[  s[]<Esc>P<Right>%
+vnoremap  <leader>{  s{}<Esc>P<Right>%
+
+" VISUAL: Same as above but with additional spaces
+vnoremap <leader>)  s(  )<Esc><Left>P<Right><Right>%
+vnoremap <leader>]  s[  ]<Esc><Left>P<Right><Right>%
+vnoremap <leader>}  s{  }<Esc><Left>P<Right><Right>%
+
 " VISUAL: Automatically match quotes around selection
-vnoremap  '  s''<Esc>P<Right>
-vnoremap  "  s""<Esc>P<Right>
-vnoremap  `  s``<Esc>P<Right>
+vnoremap <leader>'  s''<Esc>P<Right>
+vnoremap <leader>"  s""<Esc>P<Right>
+vnoremap <leader>`  s``<Esc>P<Right>
 
 
 
@@ -333,26 +321,20 @@ nnoremap //   /<C-R>/
 nnoremap ///  /<C-R>/\<BAR>
 
 " NORMAL: Map Backspace to turn off search highlighting until next search
-nnoremap <silent> <BS> :nohl<Enter><BS>
-
-" NORMAL: Hilight matches when jumping to next
-nnoremap <silent> n   n:call HLNext(0.4)<Enter>
-nnoremap <silent> N   N:call HLNext(0.4)<Enter>
+nnoremap <silent> <BS> :nohl<CR><BS>
 
 " NORMAL AND VISUAL: Shortcut for :s///g
-nmap <leader>sg  :%s//g<Left><Left>
-vmap <leader>sg  :B s//g<Left><Left>
+map <leader>sg  :%s//g<Left><Left>
 
-" Highlight all occurrences of the current word without selecting the next one
+" NORMAL: Highlight all occurrences of the current word without selecting the
+" next one. Double-Click has the same effect.
 nnoremap <leader>h :let @/='\<<C-R>=expand("<cword>")<CR>\>'<CR>:set hls<CR>
 nmap <2-LeftMouse> <leader>h
 
-" NORMAL: Make * respect smartcase and also set @/ (to enable 'n' and 'N')
+" NORMAL: Make * and # respect smartcase and also set @/ (to enable 'n' and 'N')
+" i.e. Make * and # also generate proper searches.
 nmap *  :let @/ = '\<'.expand('<cword>').'\>' ==? @/ ? @/ : '\<'.expand('<cword>').'\>'<CR>n
-
-" VISUAL: * and # search for the current selection forwards and backwards
-vnoremap <silent> * :call VisualSelection('f', '')<Enter>
-vnoremap <silent> # :call VisualSelection('b', '')<Enter>
+nmap #  :let @/ = '\<'.expand('<cword>').'\>' ==? @/ ? @/ : '\<'.expand('<cword>').'\>'<CR>N
 
 
 
@@ -426,10 +408,10 @@ map j gj
 map k gk
 
 " NORMAL, VISUAL: Move a line of text using ALT+[jk]
-nmap <M-j> mz:m+<Enter>`z
-nmap <M-k> mz:m-2<Enter>`z
-vmap <M-j> :m'>+<Enter>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<Enter>`>my`<mzgv`yo`z
+nmap <M-j> mz:m+<CR>`z
+nmap <M-k> mz:m-2<CR>`z
+vmap <M-j> :m'>+<CR>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<CR>`>my`<mzgv`yo`z
 
 " NORMAL, VISUAL: Make Up/Down arrows move a line of text as well
 nmap <Down> <M-j>
@@ -471,33 +453,33 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.
 """ MAPPINGS """
 
 " ALL: Show all buffers (with shortcuts) and wait for a shortcut for one
-nnoremap <leader>bg :buffers<Enter>:buffer<Space>
+nnoremap <leader>bg :buffers<CR>:buffer<Space>
 
 " ALL: Close the current buffer
 command! Bclose call <SID>BufcloseCloseIt()
-map <leader>bc :Bclose<Enter>
+map <leader>bc :Bclose<CR>
 
 " ALL: Close all the buffers
-map <leader>ba :1,1000 bd!<Enter>
+map <leader>ba :1,1000 bd!<CR>
 
 " ALL: Useful mappings for managing tabs (use C-PageUp/Down for :tabp/n)
 " Open new tab through file search
 map <leader>tf :tabfind <Space>
-map <leader>tn :tabnew<Enter>
-map <leader>to :tabonly<Enter>
-map <leader>tc :tabclose<Enter>
+map <leader>tn :tabnew<CR>
+map <leader>to :tabonly<CR>
+map <leader>tc :tabclose<CR>
+map <leader>t<leader> :tabnext
 " Move tab to X position (starting from 0)
 map <leader>tm :tabmove<Space>
-map <leader>t<leader> :tabnext
 " NORMAL: Let 'tl' toggle between this and the last accessed tab
 let g:lasttab = 1
-nmap <leader>tl :exe "tabn ".g:lasttab<Enter>
+nmap <leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 " Open a new tab with the current buffer's path
-map <leader>te :tabedit <c-r>=expand("%:p:h")<Enter>/
+map <leader>te :tabedit <c-r>=expand("%:p:h")<CR>/
 
 " ALL: Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<Enter>:pwd<Enter>
+map <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 
 
@@ -513,6 +495,7 @@ source $VIMRUNTIME/menu.vim
 """ MAPPINGS """
 
 " NORMAL: Reload _vimrc file ($real_vimrc set in the real _vimrc)
+" Useful to fix almost anything and reactivate settings.
 nmap <leader>r :source $real_vimrc
 
 " NORMAL: Edit real _vimrc file
@@ -522,63 +505,6 @@ nmap <leader>repo :e $basic_vimrc
 
 
 """" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Delete trailing White Space
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
-
-
-" Draw a ring around the next match
-function! HLNext (blinktime)
-    highlight RedOnRed guifg=Black guibg=DarkOrange
-    let [bufnum, lnum, col, off] = getpos('.')
-    let matchlen = strlen(matchstr(strpart(getline('.'),col-1),@/))
-    echo matchlen
-    let ring_pat = (lnum > 1 ? '\%'.(lnum-1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.\|' : '')
-        \ . '\%'.lnum.'l\%>'.max([col-4,1]) .'v\%<'.col.'v.'
-        \ . '\|'
-        \ . '\%'.lnum.'l\%>'.max([col+matchlen-1,1]) .'v\%<'.(col+matchlen+3).'v.'
-        \ . '\|'
-        \ . '\%'.(lnum+1).'l\%>'.max([col-4,1]) .'v\%<'.(col+matchlen+3).'v.'
-    let ring = matchadd('RedOnRed', ring_pat, 101)
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    call matchdelete(ring)
-    redraw
-endfunction
-
-
-function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
-endfunction
-
-
-function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
-
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("Ack \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
-
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
 
 " Returns true if paste mode is enabled
 function! HasPaste()

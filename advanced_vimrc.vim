@@ -89,6 +89,18 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 """" 7 - MOTIONS AND MOVING AROUND """""""""""""""""""""""""""""""""""""""""""""
 
 
+""" MAPPINGS """
+
+" VISUAL: Drag around Selection (slightly different from Alt based maps defined
+" in the basic file). It sometimes presents weird behaviour. Vastly improved
+" upon by dragvisuals.vim extension.
+vnoremap J xp`[V`]
+vnoremap K xkP`[V`]
+vnoremap H <gv
+vnoremap L >gv
+
+
+
 """" 8 - BUFFERS AND TABS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 

@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.9 - 30-31/01/2014
+"       1.10 - 01/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -141,7 +141,9 @@ endif
 set shortmess+=I
 
 " Maximise on Startup (for Windows). Can also be done through shortcut options
-au GUIEnter * simalt ~x
+au GUIEnter * if $OS == "Windows" |
+    \   simalt ~x |
+    \ endif
 
 
 """ MAPPINGS """
@@ -382,7 +384,7 @@ vmap <Left>  <A-h>
 vmap <Right> <A-l>
 
 " Make the previous map group work for the Command key on Mac
-if has("mac") || has("macunix")
+if $OS == "Mac"
     nmap <D-h> <A-h>
     nmap <D-l> <A-l>
     vmap <D-h> <A-h>
@@ -420,7 +422,7 @@ vmap <Down> <M-j>
 vmap <Up>   <M-k>
 
 " Make the previous map group work for the Command key on Mac
-if has("mac") || has("macunix")
+if $OS == "Mac"
     nmap <D-j> <M-j>
     nmap <D-k> <M-k>
     vmap <D-j> <M-j>
@@ -485,7 +487,26 @@ map <leader>cd :cd %:p:h<CR>:pwd<CR>
 
 """" 9 - OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Avoid garbled characters in Chinese language windows OS
+" Identify Operating System
+if (has('win16') || has('win32') || has('win64'))
+    let $OS = "Windows"
+elseif has('unix') && !has('macunix') && !has('win32unix')
+    let $OS = "Unix"
+elseif has('mac') || has('macunix')
+    let $OS = "Mac"
+endif
+
+" Set shell on non-Windows OS
+if $OS != "Windows"
+    set shell=/bin/sh
+endif
+
+" On Windows, add home/.vim to the runtime path (makes inter-OS sync easier)
+if $OS == "Windows"
+    set runtimepath^=$HOME/.vim
+endif
+
+" Avoid garbled characters in Chinese language Windows OS
 let $LANG='en'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
@@ -496,7 +517,7 @@ source $VIMRUNTIME/menu.vim
 
 " NORMAL: Reload _vimrc file ($real_vimrc set in the real _vimrc)
 " Useful to fix almost anything and reactivate settings.
-nmap <leader>r :source $real_vimrc
+nmap <leader>r :source $real_vimrc | nohl
 
 " NORMAL: Edit real _vimrc file
 nmap <leader>real :e $real_vimrc
@@ -534,3 +555,4 @@ function! <SID>BufcloseCloseIt()
         execute("bdelete! ".l:currentBufNum)
     endif
 endfunction
+

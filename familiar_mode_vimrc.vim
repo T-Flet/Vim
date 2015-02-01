@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.2 - 17-18/01/2014
+"       1.3 - 01/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -14,6 +14,13 @@
 "       typical modern text editor for common maps (most of the time, then the
 "       Vimness kicks in).
 "
+
+"""" SETTINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Make all yank, delete, change and put operations use the system clipboard
+" register (* and/or +), making it more convenient to pass data to and from Vim
+set clipboard=unnamed,unnamedplus
+
 
 """" MAPPINGS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 

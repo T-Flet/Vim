@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.2 - 30-31/01/2014
+"       0.3 - 01-02/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -107,6 +107,14 @@ vnoremap L >gv
 """" 9 - OTHER OPTIONS """""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 
+""" MAPPINGS """
+
+" VISUAL: Preserve only unique lines from visual selection
+vmap  q :call Uniq()<CR>
+vmap  Q :call Uniq('ignore whitespace')<CR>
+
+
+
 """" 0 - HELPER FUNCTIONS """"""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Delete trailing White Space
@@ -185,6 +193,7 @@ function! HLNext (blinktime)
 endfunction
 
 
+" Provide specific actions on a visual selection
 function! VisualSelection(direction, extra_filter) range
     let l:saved_reg = @"
     execute "normal! vgvy"
@@ -207,8 +216,42 @@ function! VisualSelection(direction, extra_filter) range
     let @" = l:saved_reg
 endfunction
 
+" Command string wrapper
 function! CmdLine(str)
     exe "menu Foo.Bar :" . a:str
     emenu Foo.Bar
     unmenu Foo
+endfunction
+
+
+" Normalize the whitespace in a string
+function! TrimWS (str)
+    " Remove whitespace fore and aft
+    let trimmed = substitute(a:str, '^\s\+\|\s\+$', '', 'g')
+
+    " Then condense internal whitespaces
+    return substitute(trimmed, '\s\+', ' ', 'g')
+endfunction
+
+" Reduce a range of lines to only the unique ones, preserving order
+function! Uniq (...) range
+    " Ignore whitespace differences, if asked to
+    let ignore_ws_diffs = len(a:000)
+
+    " Nothing unique seen yet
+    let seen = {}
+    let uniq_lines = []
+
+    " Walk through the lines, remembering only the hitherto unseen ones
+    for line in getline(a:firstline, a:lastline)
+        let normalized_line = '>' . (ignore_ws_diffs ? TrimWS(line) : line)
+        if !get(seen,normalized_line)
+            call add(uniq_lines, line)
+            let seen[normalized_line] = 1
+        endif
+    endfor
+
+    " Replace the range of original lines with just the unique lines
+    exec a:firstline . ',' . a:lastline . 'delete'
+    call append(a:firstline-1, uniq_lines)
 endfunction

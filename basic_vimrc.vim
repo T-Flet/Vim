@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.10 - 01/02/2014
+"       1.11 - 01-02/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -70,10 +70,12 @@ autocmd BufReadPost *
 
 " Use persistent undo
 if has('persistent_undo')
-    " Save all undo files in a single location (less messy, more risky)...
+    " Save all undo files in a single location (less messy, more risky)
     set undodir=$HOME/tmp/.VIM_UNDO_FILES
-    " Save a lot of back-history...
+    " Allow a lot of undo operations
     set undolevels=5000
+    " Save and restore a lot of history
+    set undoreload=10000
     " Actually switch on persistent undo
     set undofile
 endif
@@ -137,8 +139,8 @@ if has("gui_running")
     set guitablabel=%M\ %t  "Set label of GUI tab pages lines (requires e above)
 endif
 
-" Remove startup screen message
-set shortmess+=I
+" Remove startup screen message and implement many abbreviations
+set shortmess+=filmnrxoOtTI
 
 " Maximise on Startup (for Windows). Can also be done through shortcut options
 au GUIEnter * if $OS == "Windows" |
@@ -402,6 +404,11 @@ set whichwrap=b,s,h,l,<,>,[,]
 " Allow backspacing over autoindent, line breaks and start of insert action
 set backspace=indent,eol,start
 
+" Make . # - end of word designators (Just use capital (WORD) commands not to)
+set iskeyword-=.
+set iskeyword-=#
+set iskeyword-=-
+
 
 """ MAPPINGS """
 
@@ -440,6 +447,9 @@ try
     set stal=2
 catch
 endtry
+
+" Better Unix / Windows compatibility by saving unix EOL char and path slashes
+set viewoptions=folds,options,cursor,unix,slash
 
 " Make session saves save only tabs and help pages (not extra maps and options)
 set sessionoptions=tabpages,help

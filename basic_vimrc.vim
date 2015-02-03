@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.11 - 01-02/02/2014
+"       1.12 - 02-03/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -93,8 +93,6 @@ set hidden
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
 set cmdheight=2
-" Show partial commands in the last line of the screen
-set showcmd
 
  "Adjust completions to match case
 set infercase
@@ -112,10 +110,29 @@ endif
 
 " Display line numbers on the left
 set number
-" Always display the status line, even if only one window is displayed
-set laststatus=2
-" Format the status line (Includes what "set ruler would have enabled")
-let &statusline=" Buf:%n   %{HasPaste()}%f%m%r%h %w  CWD: %.40{getcwd()}   %y  Line: %l/%L Col: %c"
+
+if has('cmdline_info')
+    " Show the ruler
+    set ruler
+    " Set the ruler format (lookup symbols in help pages)
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
+    " Show partial commands and selected characters or lines in visual mode
+    set showcmd
+endif
+
+if has('statusline')
+    " Always display the status line, even if only one window is displayed
+    set laststatus=2
+
+    " One format string, split for commenting (\<space> is actual space)
+    set statusline=B:%n\ %<%15.f                     " Buffer number and Filename
+    set statusline+=\ %{HasPaste()}%m%r%h%w       " Options
+    set statusline+=\ \ [%{&ff}/%Y]               " OS style Filetype
+    set statusline+=\ \ \                         " Spacing
+    set statusline+=CWD:[%.40{getcwd()}]             " Current dir
+    set statusline+=\ \ \                         " Spacing
+    set statusline+=%=%-12.(%l/%L,%c%V%)\ \ %p%%  " Right aligned file nav info
+endif
 
 " Show matching brackets when text indicator is over them
 set showmatch

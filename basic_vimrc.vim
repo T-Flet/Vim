@@ -250,6 +250,9 @@ set virtualedit=block
 " Add angle brackets to matching pairs (like all parentheses)
 set matchpairs+=<:>
 
+" Prevents inserting two spaces after punctuation on a join (J)
+set nojoinspaces
+
 " Change initial directory. Can also be done through shortcut options
 "cd FOLDER
 

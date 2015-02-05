@@ -10,7 +10,16 @@ complete configuration with asimptotically slowing evolution over time.
 The main goal of this configuration is to add features and polish the GUI
 without taking anything away from the standard ones, while sometimes "fixing"
 some percieved inconsistencies within them.
+
+This means that I have tried not to change any default Vim command behaviour
+except by adding extra functionalities; one exeption to this is changing the
+Y map to act like D and C, i.e. to yank until EOL rather than act as yy,
+which is the default.
+
 In short, this aims to be a Vi IMproved IMproved configuration, XD.
+
+All files in this repository are extremely organised and well commented,
+hence the absence of a detailed features list here.
 
 
 Some Nice Features

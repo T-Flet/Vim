@@ -196,7 +196,7 @@ set cursorline
 
 """ MAPPINGS """
 
-" Enable cursor row highlighting; reload _vimrc to remove (<leader>r)
+" ALL: Enable cursor row highlighting; reload _vimrc to remove (<leader>r)
 map <silent> <leader>R :highlight CursorLine guibg=Black<CR>
 
 " ALL: Pressing ,ss will toggle and untoggle spell checking
@@ -280,7 +280,6 @@ map <leader>pp :setlocal paste!<CR>
 noremap  <leader>x "*d
 noremap  <leader>c "*y
 noremap  <leader>v "*gp
-inoremap <leader>v <Esc>"*gpi
 
 " NORMAL: Fast save
 nmap <leader>w :w!<CR>

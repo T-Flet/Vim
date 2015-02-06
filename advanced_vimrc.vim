@@ -71,8 +71,8 @@ vmap <silent> <leader>k :call ToggleBlock()<CR>
 """ MAPPINGS """
 
 " NORMAL: Hilight matches when jumping to next
-nnoremap <silent> n   n:call HLNext(0.4)<CR>
-nnoremap <silent> N   N:call HLNext(0.4)<CR>
+nnoremap <silent> n   n:call HLNext(0.1)<CR>
+nnoremap <silent> N   N:call HLNext(0.1)<CR>
 
 " Search and replace the selected text
 vnoremap <leader>sg :call VisualSelection('replace', '')<CR>
@@ -191,6 +191,46 @@ function! HLNext (blinktime)
     call matchdelete(ring)
     redraw
 endfunction
+
+
+
+"
+"
+"
+"" TEST WITHOUT A()NY lS
+"
+"
+"inoremap <silent> ) <Esc>:call SkipMatching(')')<CR>i
+"inoremap <silent> ] <Esc>:call SkipMatching(']')<CR>i
+"inoremap <silent> } <Esc>:call SkipMatching('}')<CR>i
+"
+"inoremap <silent> ` <Esc>:call SkipMatching('`')<CR>i
+"inoremap <silent> ' <Esc>:call SkipMatching("'")<CR>i
+"inoremap <silent> " <Esc>:call SkipMatching('"')<CR>i
+"
+"function! SkipMatching(thing)
+"    let l:saved_reg = @"
+"    execute "normal! vly"
+"
+"    if @" =~ "\n"
+"        execute "normal! i" . a:thing
+"    elseif ((a:thing =~ "[`'\"]" && @" == a:thing . a:thing) ||
+"                \ (a:thing == ")" && @" == "()") ||
+"                \ (a:thing == "]" && @" == "[]") ||
+"                \ (a:thing == "}" && @" == "{}"))
+"        execute "normal! ll"
+"    else
+"        execute "normal! i" . a:thing . "\<Esc>ll"
+"    endif
+"
+"    let @" = l:saved_reg
+"endfunction
+"
+"
+"
+
+
+
 
 
 " Provide specific actions on a visual selection

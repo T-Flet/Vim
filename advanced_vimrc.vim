@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.3 - 01-02/02/2014
+"       0.4 - 06-07/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -62,6 +62,15 @@ autocmd BufNewFile,BufRead   *.p[lm],.t                        let b:cmt = exist
 " NORMAL OR VISUAL: Toggle (respectively), line and selection lines commenting
 nmap <silent> <leader>k :call ToggleComment()<CR>
 vmap <silent> <leader>k :call ToggleBlock()<CR>
+
+" INSERT: If a matching quote or bracket is detected, inserting becomes skipping
+inoremap <silent> ) <Esc>:call SkipMatching(')')<CR>a
+inoremap <silent> ] <Esc>:call SkipMatching(']')<CR>a
+inoremap <silent> } <Esc>:call SkipMatching('}')<CR>a
+
+inoremap <silent> ` <Esc>:call SkipMatching('`')<CR>a
+inoremap <silent> ' <Esc>:call SkipMatching("'")<CR>a
+inoremap <silent> " <Esc>:call SkipMatching('"')<CR>a
 
 
 
@@ -193,44 +202,33 @@ function! HLNext (blinktime)
 endfunction
 
 
+" INSERT: If a matching quote or bracket is detected, inserting becomes skipping
+function! SkipMatching(thing)
+    " Store contents of unnamed registers
+    let l:saved_reg = @"
 
-"
-"
-"
-"" TEST WITHOUT A()NY lS
-"
-"
-"inoremap <silent> ) <Esc>:call SkipMatching(')')<CR>i
-"inoremap <silent> ] <Esc>:call SkipMatching(']')<CR>i
-"inoremap <silent> } <Esc>:call SkipMatching('}')<CR>i
-"
-"inoremap <silent> ` <Esc>:call SkipMatching('`')<CR>i
-"inoremap <silent> ' <Esc>:call SkipMatching("'")<CR>i
-"inoremap <silent> " <Esc>:call SkipMatching('"')<CR>i
-"
-"function! SkipMatching(thing)
-"    let l:saved_reg = @"
-"    execute "normal! vly"
-"
-"    if @" =~ "\n"
-"        execute "normal! i" . a:thing
-"    elseif ((a:thing =~ "[`'\"]" && @" == a:thing . a:thing) ||
-"                \ (a:thing == ")" && @" == "()") ||
-"                \ (a:thing == "]" && @" == "[]") ||
-"                \ (a:thing == "}" && @" == "{}"))
-"        execute "normal! ll"
-"    else
-"        execute "normal! i" . a:thing . "\<Esc>ll"
-"    endif
-"
-"    let @" = l:saved_reg
-"endfunction
-"
-"
-"
+    " Copy the current and next characters
+    execute "normal! vly"
 
+    " Unless already in quotes, quotes need to auto-match themselves
+    if a:thing =~ "[`'\"]"
+        if @" == a:thing . a:thing
+            execute "normal! l"
+        else
+            execute "normal! a" . a:thing . a:thing . "\<Esc>h"
+        endif
+    " Act differently for different situations
+    elseif (  (a:thing == ")" && @" == "()") ||
+            \ (a:thing == "]" && @" == "[]") ||
+            \ (a:thing == "}" && @" == "{}")   )
+        execute "normal! l"
+    else
+        execute "normal! a" . a:thing
+    endif
 
-
+    " Restore unnamed register
+    let @" = l:saved_reg
+endfunction
 
 
 " Provide specific actions on a visual selection

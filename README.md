@@ -29,6 +29,7 @@ A very small selection of the many implemented settings is:
 
     - Session tabs restoration at startup.
     - Alt-[hjkl] to move lines vertically and horizontally (indent/unindent)
+    - "Smart" quotes and brackets: autocompleting and "skipping" if present
     - * and # also work as proper word search queries (highlighting and all)
     - Double click on a word to show matches.
     - GUI features: useful statusbar contents, next match flash highlighting...

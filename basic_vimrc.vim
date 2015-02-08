@@ -44,6 +44,10 @@ set autoread
 let mapleader = ","
 let g:mapleader = ","
 
+" Set "_" as local (buffer-wise) map leader, allowing extra key combinations
+let maplocalleader = "_"
+let g:maplocalleader = "_"
+
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
@@ -295,7 +299,7 @@ inoremap  (  ()<Left>
 inoremap  [  []<Left>
 inoremap  {  {}<Left>
 
-" NORMAL: Automatically match quotes
+" INSERT: Automatically match quotes
 inoremap  '  ''<Left>
 inoremap  "  ""<Left>
 inoremap  `  ``<Left>
@@ -488,18 +492,18 @@ nnoremap <leader>bg :buffers<CR>:buffer<Space>
 
 " ALL: Close the current buffer
 command! Bclose call <SID>BufcloseCloseIt()
-map <leader>bc :Bclose<CR>
+map <silent> <leader>bc :Bclose<CR>
 
 " ALL: Close all the buffers
-map <leader>ba :1,1000 bd!<CR>
+map <silent> <leader>ba :1,1000 bd!<CR>
 
 " ALL: Useful mappings for managing tabs (use C-PageUp/Down for :tabp/n)
 " Open new tab through file search
 map <leader>tf :tabfind <Space>
-map <leader>tn :tabnew<CR>
-map <leader>to :tabonly<CR>
-map <leader>tc :tabclose<CR>
-map <leader>t<leader> :tabnext
+map <silent> <leader>tn :tabnew<CR>
+map <silent> <leader>to :tabonly<CR>
+map <silent> <leader>tc :tabclose<CR>
+map <silent> <leader>t<leader> :tabnext
 " Move tab to X position (starting from 0)
 map <leader>tm :tabmove<Space>
 " NORMAL: Let 'tl' toggle between this and the last accessed tab

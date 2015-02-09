@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.12 - 02-03/02/2014
+"       1.13 - 08-09/02/2014
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -129,11 +129,11 @@ if has('statusline')
     set laststatus=2
 
     " One format string, split for commenting (\<space> is actual space)
-    set statusline=B:%n\ %<%15.f                     " Buffer number and Filename
+    set statusline=B:%n\ %<%15.f                  " Buffer number and Filename
     set statusline+=\ %{HasPaste()}%m%r%h%w       " Options
     set statusline+=\ \ [%{&ff}/%Y]               " OS style Filetype
     set statusline+=\ \ \                         " Spacing
-    set statusline+=CWD:[%.40{getcwd()}]             " Current dir
+    set statusline+=CWD:[%.40{getcwd()}]          " Current dir
     set statusline+=\ \ \                         " Spacing
     set statusline+=%=%-12.(%l/%L,%c%V%)\ \ %p%%  " Right aligned file nav info
 endif
@@ -144,7 +144,7 @@ set showmatch
 set mat=2
 
 " Set scroll offset: x lines will be visible above and below the cursor
-set scrolloff=7
+set scrolloff=5
 
 " Add a bit extra margin to the left
 set foldcolumn=1
@@ -262,6 +262,10 @@ set nojoinspaces
 
 
 """ MAPPINGS """
+
+" ALL: \ also enters command mode. It is easier to type.
+"   an alternative could have been to map ; and : to each other.
+noremap \ :
 
 " INSERT: Abbreviations for short and long dates
 iab xdate <c-r>=strftime("%d/%m/%y")<cr>

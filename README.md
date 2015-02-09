@@ -81,10 +81,22 @@ How to use/Install
         - Check whether a newer version of Vim is available for download.
 
 
+Tips and Tricks
+===
+
+If anything (a key combination or any behaviour) does not work as you expect,
+try and understand what it is actually doing by searching the various
+configuration files with a few relevant keywords key combinations.
+This will bring you to the lines which deal with the issue; I have strived to
+make the comments as explainatory as possible, and I am confident that reading
+them will clear things up. If not, try going through the help pages (the
+command is :h KEYWORD). If not even that helps, feel free to raise an issue on
+GitHub, and I will try and solve the problem.
+
+
 INCOMPLETE STUFF
 ===
 
-advanced_vimrc.vim
 filetypes_vimrc.vim
 extensions_vimrc.vim
 updater.hs

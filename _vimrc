@@ -38,8 +38,8 @@ source $basic_vimrc
 " Advanced Vim configuration features
 source $advanced_vimrc
 " Filetypes configurations
-source $filetypes_vimrc
+""source $filetypes_vimrc
 " Extensions configurations
-source $extensions_vimrc
+""source $extensions_vimrc
 " "familiar" mappings
 source $familiar_mode_vimrc

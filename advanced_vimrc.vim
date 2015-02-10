@@ -217,7 +217,7 @@ function! SkipMatching(thing)
         else
             execute "normal! a" . a:thing . a:thing . "\<Esc>h"
         endif
-    " Act differently for different situations
+    " Skip right brackets
     elseif (  (a:thing == ")" && @" == "()") ||
             \ (a:thing == "]" && @" == "[]") ||
             \ (a:thing == "}" && @" == "{}")   )

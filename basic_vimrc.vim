@@ -263,6 +263,12 @@ set nojoinspaces
 
 """ MAPPINGS """
 
+" INSERT AND VISUAL: Return to normal mode (Alias of <Esc>).
+" Other default on key combinations that will work are:
+" Ctrl+[ (English keyboards only) or Ctrl+C.
+inoremap <S-Space> <Esc>
+vnoremap <S-Space> <Esc>
+
 " ALL: \ also enters command mode. It is easier to type.
 "   an alternative could have been to map ; and : to each other.
 noremap \ :

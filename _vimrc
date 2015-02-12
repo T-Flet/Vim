@@ -28,7 +28,7 @@ let $advanced_vimrc=$REPO_PATH."advanced_vimrc.vim"
 let $filetypes_vimrc=$REPO_PATH."filetypes_vimrc.vim"
 let $extensions_vimrc=$REPO_PATH."extensions_vimrc.vim"
 let $familiar_mode_vimrc=$REPO_PATH."familiar_mode_vimrc.vim"
-let $theme_vimrc=$REPO_PATH."theme_vimrc.vim"
+let $theme_vimrc=$REPO_PATH."theme0_vimrc.vim"
 
 
 " Source (execute/implement) specific configurations;

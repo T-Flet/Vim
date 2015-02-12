@@ -9,7 +9,8 @@
 "       https://github.com/Dr-Lord/Vim
 "
 "   Description:
-"       Alternative, more familiar mappings vim configuration file.
+"       This configuration file contains additional or alternative more familiar
+"       mappings to the ones set in other files.
 "       It overwrites corresponding previous maps and makes vim behave like a
 "       typical modern text editor for common maps (most of the time, then the
 "       Vimness kicks in).

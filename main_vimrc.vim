@@ -10,9 +10,9 @@
 "
 "   Description:
 "       Non-extension related part of the personal vim configuration of Dr-Lord.
-"       Started from general tips and tricks gathered from use, research and
-"       study of the best vimrcs found through it, and (hopefully) ending in a
-"       complete configuration with asimptotically slowing evolution over time.
+"       This configuration file contains all the basic/necessary settings in
+"       order to make Vim vary good. See all the other files in the repository
+"       for more advanced or specific settings and functions.
 "
 "   Sections:
 "       1 - Basics

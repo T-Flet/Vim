@@ -49,7 +49,7 @@ How to use/Install
 3 - Decide which configurations to implement in your Vim by commenting or
     uncommenting the following "source" lines in the _vimrc file:
 
-        Basic:      The only essential source; it contains all the simple
+        Main:      The only essential source; it contains all the simple
                     non extensions-related settings.
 
         Advanced:   Contains all the non-essential and non extensions-related
@@ -63,13 +63,15 @@ How to use/Install
         Familiar:   Contains all the necessary settings to make Vim behave more
                     or less like a "normal" text editor, such as the
                     Ctrl+[xcvzyaf] key mappings and making the arrows move the
-                    cursor instead of text lines (as set in the Basic file).
+                    cursor instead of text lines (as set in the Main file).
                     Useful mode while learning to properly use Vim or in order
                     not to give up known and common keyboard shortcuts.
                     This mode DOES NOT take away any functionality from the
                     other configuration files; it simply adds the "familiar"
                     options, which you can choose not to use, but some of
                     which are quite useful.
+
+        Theme:      Contains all the text and colours related settings.
 
 4 - Copy the edited _vimrc file to your Vim installation folder.
 

@@ -10,9 +10,9 @@
 "
 "   Description:
 "       Filetype related part of the personal vim configuration of Dr-Lord.
-"       Started from general tips and tricks gathered from use, research and
-"       study of the best vimrcs found through it, and (hopefully) ending in a
-"       complete configuration with asimptotically slowing evolution over time.
+"       This configuration file contains all the specific settings that each
+"       language might require when used, from highligting, to autocompletions
+"       to specific key mappings.
 "
 "   Sections:
 "       1 -

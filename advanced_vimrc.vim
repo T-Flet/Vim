@@ -10,10 +10,9 @@
 "
 "   Description:
 "       Advanced non-extension related part of the personal vim configuration
-"       of Dr-Lord. Started from general tips and tricks gathered from use,
-"       research and study of the best vimrcs found through it, and (hopefully)
-"       ending in a complete configuration with asimptotically slowing evolution
-"       over time.
+"       of Dr-Lord. This configuration file contains all the non essential
+"       but very useful settings which make Vim awsome. Some of them might
+"       be overridden by extensions and their configurations.
 "
 "   Sections:
 "       1 - Basics

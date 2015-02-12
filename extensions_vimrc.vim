@@ -10,9 +10,8 @@
 "
 "   Description:
 "       Extension related part of the personal vim configuration of Dr-Lord.
-"       Started from general tips and tricks gathered from use, research and
-"       study of the best vimrcs found through it, and (hopefully) ending in a
-"       complete configuration with asimptotically slowing evolution over time.
+"       This configuration file contains all the extensions' settings, both
+"       initial setups and useful key mappings.
 "
 "   Sections:
 "       1 - Various
@@ -62,15 +61,15 @@ inoremap <expr><C-l>     neocomplcache#complete_common_string()
 " <CR>: close popup and save indent.
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
-  return neocomplcache#smart_close_popup() . "\<CR>"
+  "return neocomplcache#smart_close_popup() . "\<CR>"
   " For no inserting <CR> key.
-  "return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+  return pumvisible() ? neocomplcache#close_popup() : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><C-h>  neocomplcache#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>   neocomplcache#smart_close_popup()."\<C-h>"
 inoremap <expr><C-y>  neocomplcache#close_popup()
 inoremap <expr><C-e>  neocomplcache#cancel_popup()
 
@@ -92,7 +91,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 "let g:neocomplcache_force_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
 
 
 

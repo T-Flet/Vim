@@ -99,4 +99,4 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " neco-ghc
 autocmd FileType hs setlocal omnifunc=necoghc#omnifunc
-""g:necoghc_enable_detailed_browse = 1
+let g:necoghc_enable_detailed_browse = 1

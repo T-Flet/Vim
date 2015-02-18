@@ -47,13 +47,14 @@ call matchadd('ColorColumn', '\%81v', 100)
 " Delete trailing white space on save
 autocmd BufWrite * :call DeleteTrailingWS()
 
-" Work out what the comment character is, by filetype...
+" Work out what the comment character is, by filetype
 autocmd FileType             *sh,awk,python,perl,perl6,ruby    let b:cmt = exists('b:cmt') ? b:cmt : '#'
 autocmd FileType             vim                               let b:cmt = exists('b:cmt') ? b:cmt : '"'
 autocmd FileType             haskell                           let b:cmt = exists('b:cmt') ? b:cmt : '--'
 autocmd BufNewFile,BufRead   *.vim,.vimrc                      let b:cmt = exists('b:cmt') ? b:cmt : '"'
 autocmd BufNewFile,BufRead   *                                 let b:cmt = exists('b:cmt') ? b:cmt : '#'
 autocmd BufNewFile,BufRead   *.p[lm],.t                        let b:cmt = exists('b:cmt') ? b:cmt : '#'
+autocmd BufNewFile,BufRead   *.hs,.cabal                       let b:cmt = exists('b:cmt') ? b:cmt : '--'
 
 
 """ MAPPINGS """
@@ -100,7 +101,7 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 """ MAPPINGS """
 
 " VISUAL: Drag around Selection (slightly different from Alt based maps defined
-" in the basic file). It sometimes presents weird behaviour. Vastly improved
+" in the main file). It sometimes presents weird behaviour. Vastly improved
 " upon by dragvisuals.vim extension.
 vnoremap J xp`[V`]
 vnoremap K xkP`[V`]

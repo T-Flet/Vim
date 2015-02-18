@@ -564,7 +564,7 @@ nmap <leader>r :source $real_vimrc | nohl
 
 " NORMAL: Edit real _vimrc file
 nmap <leader>real :e $real_vimrc
-nmap <leader>repo :e $basic_vimrc
+nmap <leader>repo :e $main_vimrc
 
 
 

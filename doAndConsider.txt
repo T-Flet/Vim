@@ -1,0 +1,156 @@
+"""" INTRODUCTION """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+   Author:
+       Dr-Lord
+   Version:
+       1.0 - 01-02/03/2015
+
+   Repository:
+       https://github.com/Dr-Lord/Vim
+
+   Description:
+       This file contains a list of things to do and one to consider for most
+       files in the project.
+
+   Sections:
+       0 - README.md
+       1 - _vimrc
+       2 - main_vimrc.vim
+       3 - advanced_vimrc.vim
+       4 - filetypes_vimrc.vim
+       5 - extensions_vimrc.vim
+       6 - familiar_mode_vimrc.vim
+       7 - theme_vimrc.vim
+       8 - updater.hs
+
+
+
+"""" 0 - README.MD """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+    CALLING IT "PERFECT VIMRC"
+
+    ADDING A LIST OF ALL MAPPINGS IN THE README
+
+DO:
+	Add a general version number in addition to single file ones
+
+    List all the leader mappings
+
+    Present it more: I tried not to change anything, just to add, exception Y. Reasons For it, structure, influences, method of creation. Thanks.
+
+
+"""" 1 - _VIMRC """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+    If a second map on the same combination overwrites the first one, leave basic useful stuff in the normal vimrc, then tell people that source-ing the extension vimrc will overwrite those maps seamlessly. (Point in question: Bclose map to <leader>bc). (also write which map what overrites on both sides)
+
+DO:
+    Check Linux compatibility
+
+
+"""" 2 - MAIN_VIMRC.VIM """"""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+	Adding buffer numbers at beginning of tab title, if possible
+
+	CHANGING LEADER TO SPACE AND SEARCH TO SPACE SPACE
+
+	MAPPING SPACE TO COMMAND (COLUMN) Or swap ; and : like Damian Conway
+
+	Think about all mouse clicks
+
+	Open a file from outisde Vim in a new Tab: http://www.vim.org/scripts/script.php?script_id=4214
+
+DO:
+   	Investigate the "smart way to move between windows" mappings; what do they do?
+
+    Count search matches
+
+    Focus on useful window splitting commands/maps
+
+	Make double click also or triple click visually select a word (as well, in the case of double click)
+    NOTE: This already happens in Insert mode
+
+    Compare basic and familiar maps and functions for select-all
+
+    Really think about swapfiles and backups: they are useful
+
+    Make some mappings command-line mappings as well
+
+    Take back some stuff from familiar_mode
+
+    Better session management
+
+
+"""" 3 - ADVANCED_VIMRC.VIM """"""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+    Automatic folding and look at all folding commands
+
+DO:
+    FIX BUG: SkipMatching quotes at BOL with chars after cursor present
+
+    FIX BUG: Autocommenting ,k does not work on md and hs files (at least)
+
+    Find a way to use Perl regexes instead of/in addition to/mixed with Vim's.
+    Also look at magic and very magic.
+
+    Find thesaurus and dictionary files and implement them
+
+
+"""" 4 - FILETYPES_VIMRC.VIM """""""""""""""""""""""""""""""""""""""""""""""""""
+
+DO:
+    Look at Damian Conway's for Perl
+
+
+"""" 5 - EXTENSIONS_VIMRC.VIM """"""""""""""""""""""""""""""""""""""""""""""""""
+
+DO:
+    Configure autocompletion extension more
+
+    Whenever implementing addons, probably tell pathogen to use a folder in or around the repo in order to avoid admin permissions
+
+    When implementing add-ons, do not delete obsolete maps, but deactivate them in the extensions vimrc
+
+
+"""" 6 - FAMILIAR_MODE_VIMRC.VIM """""""""""""""""""""""""""""""""""""""""""""""
+
+DO:
+    Really decide about using system clipboard always
+
+    Make some familiar mappings work in visual mode as well
+
+
+"""" 7 - THEME_VIMRC.VIM """""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+    Multiple files for basically different themes
+
+
+"""" 8 - UPDATER.HS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+CONSIDER:
+	Making it actually update Vim itself
+
+	Making it read and update the real _vimrc and gather and keep the "settings" (commented out stuff, folder names, ...)
+
+	Make it update itself somehow:
+		Run from another folder?
+		Create a separate program which updates him?
+
+	Making it work through:
+		Zip files
+		GitHub API
+		Git modules
+
+DO:
+	First step: make it change the folder in the real _vimrc to the current folder
+
+	Make it store only the name of the plugins, as the link is always the same slash the name NOTE: github account names are different
+
+	Make it update both my repo and plugins
+
+    First make it work, then make it safe (defensive, with eithers and stuff)?
+

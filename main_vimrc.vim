@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.13 - 08-09/02/2014
+"       1.13 - 08-09/02/2015
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -266,16 +266,16 @@ set nojoinspaces
 " INSERT AND VISUAL: Return to normal mode (Alias of <Esc>).
 " Other default on key combinations that will work are:
 " Ctrl+[ (English keyboards only) or Ctrl+C.
-inoremap <S-Space> <Esc>
-vnoremap <S-Space> <Esc>
+"inoremap <S-Space> <Esc>
+"vnoremap <S-Space> <Esc>
 
 " ALL: \ also enters command mode. It is easier to type.
 "   an alternative could have been to map ; and : to each other.
 noremap \ :
 
 " INSERT: Abbreviations for short and long dates
-iab xdate <c-r>=strftime("%d/%m/%y")<cr>
-iab xldate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+iab xdate <c-r>=strftime("%d/%m/%Y")<cr>
+iab xldate <c-r>=strftime("%d/%m/%Y %H:%M:%S")<cr>
 
 " ALL: Map Y to act like D and C, i.e. to yank until EOL,
 " rather than act as yy, which is the default

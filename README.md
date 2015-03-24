@@ -72,6 +72,8 @@ How to use/Install
                     which are quite useful.
 
         Theme:      Contains all the text and colours related settings.
+                    If you wish, you may change to another VIM theme
+                    (ie theme1_vimrc or your own)
 
 4 - Copy the edited _vimrc file to your Vim installation folder.
 

@@ -63,7 +63,9 @@ CONSIDER:
 	Open a file from outisde Vim in a new Tab: http://www.vim.org/scripts/script.php?script_id=4214
 
 DO:
-   	Investigate the "smart way to move between windows" mappings; what do they do?
+   	FIX BUG: Sometimes the cursor goes back one step after pasting
+
+    Investigate the "smart way to move between windows" mappings; what do they do?
 
     Count search matches
 

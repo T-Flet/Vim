@@ -41,6 +41,8 @@ A very small selection of the many implemented settings is:
 How to use/Install
 ===
 
+1 - Depending on your OS, rename the _vimrc file from this repo to .vimrc (for
+    Linux environments) or not; then open it.
 
 2 - Set the $REPO_PATH variable to this repository's path.
         Note: Make sure the path ends with the path separator ( / ).

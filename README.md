@@ -33,7 +33,7 @@ A very small selection of the many implemented settings is:
     - * and # also work as proper word search queries (highlighting and all)
     - Double click on a word to show matches.
     - GUI features: useful statusbar contents, next match flash highlighting...
-    - Useful <leader>r shortcut to reload the _vimrc (fixes almost anything).
+    - Useful <leader>r shortcut to reload the _vimrc or .vimrc (fixes almost anything).
     - Many extra <leader> mappings (keyboard shortcuts).
     - An optional "familiar" mode wich enables commonly known non-Vim shortcuts.
 
@@ -41,13 +41,14 @@ A very small selection of the many implemented settings is:
 How to use/Install
 ===
 
-1 - Open the _vimrc file from this repository.
+1 - Depending on your OS, open either the _vimrc (for Windows) or the .vimrc
+    (for Unix) file in this repository.
 
-2 - Set the $REPO_PATH variable to the path to this repository.
+2 - Set the $REPO_PATH variable to this repository's path.
         Note: Make sure the path ends with the path separator ( / ).
 
 3 - Decide which configurations to implement in your Vim by commenting or
-    uncommenting the following "source" lines in the _vimrc file:
+    uncommenting the following "source" lines in the _vimrc or .vimrc file:
 
         Main:      The only essential source; it contains all the simple
                     non extensions-related settings.
@@ -73,10 +74,11 @@ How to use/Install
 
         Theme:      Contains all the text and colours related settings.
 
-4 - Copy the edited _vimrc file to your Vim installation folder.
+4 - Copy the edited _vimrc or .vimrc file to your Vim installation folder or
+    wherever your Vim would look for it.
 
 5 - INCOMPLETE: Run the provided updater program; it will:
-        - Read the _vimrc file to gather information (repository path and
+        - Read the _vimrc or .vimrc file to gather information (repository path and
           enabled sources).
         - Update the repository.
         - Update all the enabled extensions

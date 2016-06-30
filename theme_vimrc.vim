@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       0.1 - 11-12/02/2015
+"       0.2 - 30/06/2016
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -22,7 +22,13 @@
 """" 1 - BASICS """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Set font and size
-set guifont=Lucida_Sans_Typewriter:h18:cANSI
+if has("gui_gtk2")
+    set guifont=Liberation\ Mono\ 14
+elseif has("gui_macvim")
+    set guifont=Liberation\ Mono\ 14
+elseif has("gui_win32")
+    set guifont=Lucida_Sans_Typewriter:h18:cANSI
+end
 
 " Set colourscheme
 colorscheme slate

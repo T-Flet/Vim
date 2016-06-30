@@ -3,25 +3,29 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.5 - 11-12/02/2014
+"       1.6 - 30/06/2016
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
 "
 "   Description:
-"       Real _vimrc file of the personal vim configuration of Dr-Lord.
+"       Real _vimrc or .vimrc file of the personal vim configuration of Dr-Lord,
+"       which imports the desired sub-vimrc files.
 
 
 " NOTE: All the following variables may be used in any of the sourced vimrcs
 
 " MAKE THIS THE PATH OF THIS REPOSITORY'S FOLDER
 " Make sure it ends with the path separator ( / )
-let $REPO_PATH="C:/Users/Thomas/OneDrive/Programming/Vim/Vim/"
+let $REPO_PATH="INSERT THIS REPOSITORY'S PATH HERE!!!!"
 
 
 " Absolute paths to configuration files, generated from the two above paths
-" $VIM is the Vim installation folder path
-let $real_vimrc=$VIM."/_vimrc"
+" Might be useful:
+"   $VIM is the Vim installation folder path
+"   On Windows %USERPROFILE% is the equivalent of $HOME on Linux
+let $real_vimrc=$HOME."/.vimrc"
+"let $real_vimrc=$VIM."/_vimrc"
 
 let $main_vimrc=$REPO_PATH."main_vimrc.vim"
 let $advanced_vimrc=$REPO_PATH."advanced_vimrc.vim"

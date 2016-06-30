@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.13 - 08-09/02/2015
+"       1.14 - 30/06/2016
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -51,8 +51,8 @@ let g:maplocalleader = "_"
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Use Dos as the standard file type and handle Unix's and Mac's
-set fileformats=dos,unix,mac
+" Use Unix as the standard file type and handle Dos's and Mac's
+set fileformats=unix,dos,mac
 
 " Set what information should be stored in the viminfo file
 "           +--Remember buffer list
@@ -179,7 +179,13 @@ nmap <leader>m :set guioptions+=m<CR>
 """" 3 - TEXT, FONT AND COLOURS """"""""""""""""""""""""""""""""""""""""""""""""
 
 " Set font and size
-set guifont=Lucida_Sans_Typewriter:h18:cANSI
+if has("gui_gtk2")
+    set guifont=Liberation\ Mono\ 14
+elseif has("gui_macvim")
+    set guifont=Liberation\ Mono\ 14
+elseif has("gui_win32")
+    set guifont=Lucida_Sans_Typewriter:h18:cANSI
+end
 
 " Enable syntax highlighting
 syntax on

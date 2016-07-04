@@ -3,7 +3,7 @@
 "   Author:
 "       Dr-Lord
 "   Version:
-"       1.14 - 30/06/2016
+"       1.15 - 04/07/2016
 "
 "   Repository:
 "       https://github.com/Dr-Lord/Vim
@@ -98,7 +98,7 @@ set hidden
 " "press <Enter> to continue"
 set cmdheight=2
 
- "Adjust completions to match case
+" Adjust completions to match case
 set infercase
 " Enable command-line completions visualisation menu
 set wildmenu
@@ -505,6 +505,11 @@ autocmd VimEnter * nested if argc() == 0 && filereadable($HOME . "/.vim/Session.
 
 " ALL: Show all buffers (with shortcuts) and wait for a shortcut for one
 nnoremap <leader>bg :buffers<CR>:buffer<Space>
+
+" ALL: Go to previous, next and last used buffers
+nnoremap <Leader>[ :bp<CR>
+nnoremap <Leader>] :bn<CR>
+nnoremap <Leader>g :e#<CR>
 
 " ALL: Close the current buffer
 command! Bclose call <SID>BufcloseCloseIt()
